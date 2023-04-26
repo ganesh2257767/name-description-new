@@ -32,11 +32,13 @@ markets_clusters = {
     }
 }
 
+file = None
 
 def get_input_excel(event):
-    filename = input_file_window.open()
+    global file
+    file = input_file_window.open()
     try:
-        input_file_lbl.text = filename.split('/')[-1]
+        input_file_lbl.text = file.split('/')[-1]
     except AttributeError:
         print("No file was selected, ignoring error")
     else:
@@ -56,13 +58,27 @@ def toggle_promo(event):
 
 
 # This is to only allow corp and ftax fields to accept numerical values
-def sanitize_num_inputs(event):
+def sanitize_corp(event):
     if event.widget.text and not event.widget.text[-1].isnumeric():
         event.widget.text = event.widget.text[:-1]
+    if len(event.widget.text) > 4:
+        event.widget.text = event.widget.text[:4]
+
+    
+def sanitize_ftax(event):
+    if event.widget.text and not event.widget.text[-1].isnumeric():
+        event.widget.text = event.widget.text[:-1]
+    if len(event.widget.text) > 2:
+        event.widget.text = event.widget.text[:2]
     
 
-def submit_values(event):
-    if all((input_file_lbl.text,
+def sanitize_eid(event):
+    event.widget.text = event.widget.text.upper()
+    if len(event.widget.text) > 5:
+        event.widget.text = event.widget.text[:5]
+
+def validate_submit_values(event):
+    if not all((file,
           proposal_rg.selected,
           channel_rg.selected,
           env_rg.selected,
@@ -73,8 +89,9 @@ def submit_values(event):
           ftax_inp.text or ftax_inp.disabled,
           eid_inp.text or eid_inp.disabled)
           ):
-        print("Good to submit")
-        print(input_file_lbl.text,
+        app.alert('Error', 'Please enter all values', 'error')
+        return
+    print(file,
           proposal_rg.selected,
           channel_rg.selected,
           env_rg.selected,
@@ -83,12 +100,11 @@ def submit_values(event):
           market_dd.selected,
           cluster_dd.selected,
           ftax_inp.text or ftax_inp.disabled,
-          eid_inp.text or eid_inp.disabled)
-    else:
-        print("Need all values")
+          eid_inp.text or eid_inp.disabled,
+          )
 
 
-app = gp.GooeyPieApp("Offer Name Description Price Checker")
+app = gp.GooeyPieApp('Offer Name Description Price Checker')
 
 input_file_window = gp.OpenFileWindow(app, 'Select input file')
 input_file_window.set_initial_folder('app')
@@ -112,7 +128,7 @@ corp_container = gp.Container(app)
 
 corp_lbl = gp.Label(corp_container, 'Corp')
 corp_inp = gp.Input(corp_container)
-corp_inp.add_event_listener('change', sanitize_num_inputs)
+corp_inp.add_event_listener('change', sanitize_corp)
 
 container = gp.Container(app)
 
@@ -124,12 +140,13 @@ cluster_dd = gp.Dropdown(container, [])
 
 ftax_lbl = gp.Label(container, 'Ftax')
 ftax_inp = gp.Input(container)
-ftax_inp.add_event_listener('change', sanitize_num_inputs)
+ftax_inp.add_event_listener('change', sanitize_ftax)
 
 eid_lbl = gp.Label(container, 'EID')
 eid_inp = gp.Input(container)
+eid_inp.add_event_listener('change', sanitize_eid)
 
-checkbox_container = gp.LabelContainer(app, "Parameters to Check")
+checkbox_container = gp.LabelContainer(app, 'Parameters to Check')
 
 offer_id_cb = gp.Checkbox(checkbox_container, 'Offer ID', True)
 offer_id_cb.disabled = True
@@ -140,7 +157,10 @@ name_cb.disabled = True
 description_cb = gp.Checkbox(checkbox_container, 'Description')
 price_cb = gp.Checkbox(checkbox_container, 'Price')
 
-submit_btn = gp.Button(checkbox_container, 'Submit', submit_values)
+mobile_offers_container = gp.Container(checkbox_container)
+mobile_offers_cb = gp.Checkbox(mobile_offers_container, 'Checking Mobile Offers?')
+
+submit_btn = gp.Button(checkbox_container, 'Submit', validate_submit_values)
 
 app.set_grid(8, 4)
 
@@ -180,13 +200,16 @@ container.add(eid_inp, 2, 4, fill=True)
 
 app.add(checkbox_container, 8, 1, column_span=4, fill=True)
 
-checkbox_container.set_grid(2, 4)
+checkbox_container.set_grid(3, 4)
 
 checkbox_container.add(offer_id_cb, 1, 1, fill=True)
 checkbox_container.add(name_cb, 1, 2, fill=True)
 checkbox_container.add(description_cb, 1, 3, fill=True)
 checkbox_container.add(price_cb, 1, 4, fill=True)
+checkbox_container.add(mobile_offers_container, 2, 1, fill=True, column_span=4)
+checkbox_container.add(submit_btn, 3, 2, column_span=2, align='center')
 
-checkbox_container.add(submit_btn, 2, 2, column_span=2, align='center')
+mobile_offers_container.set_grid(1, 1)
+mobile_offers_container.add(mobile_offers_cb, 1, 1, align='center')
 
 app.run()
