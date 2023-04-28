@@ -33,9 +33,11 @@ markets_clusters = {
 }
 
 file = None
+offers = {}
 
 def get_input_excel(event):
-    global file
+    global file, offers
+    offers.clear()
     file = input_file_window.open()
     try:
         input_file_lbl.text = file.split('/')[-1]
@@ -43,6 +45,8 @@ def get_input_excel(event):
         print("No file was selected, ignoring error")
     else:
         input_file_lbl.color = 'green'
+        
+        
 
 
 def set_market_cluster(event):
@@ -91,17 +95,7 @@ def validate_submit_values(event):
           ):
         app.alert('Error', 'Please enter all values', 'error')
         return
-    print(file,
-          proposal_rg.selected,
-          channel_rg.selected,
-          env_rg.selected,
-          promo_rg.selected,
-          corp_inp.text,
-          market_dd.selected,
-          cluster_dd.selected,
-          ftax_inp.text or ftax_inp.disabled,
-          eid_inp.text or eid_inp.disabled,
-          )
+    print(f"{file=}\n{proposal_rg.selected=}\n{channel_rg.selected=}\n{env_rg.selected=}\n{promo_rg.selected=}\n{corp_inp.text=}\n{market_dd.selected=}\n{cluster_dd.selected=}\n{ftax_inp.text or ftax_inp.disabled=}\n{eid_inp.text or eid_inp.disabled=}")
 
 
 app = gp.GooeyPieApp('Offer Name Description Price Checker')
@@ -120,7 +114,7 @@ proposal_rg.add_event_listener('change', set_market_cluster)
 channel_rg = gp.LabelRadiogroup(app, 'Channel', ['ISA/DSA', 'UOW'], 'horizontal')
 channel_rg.add_event_listener('change', toggle_promo)
 
-env_rg = gp.LabelRadiogroup(app, 'Environment', ['UAT', 'UAT1', 'UAT2'], 'horizontal')
+env_rg = gp.LabelRadiogroup(app, 'Environment (Middleware)', ['UAT', 'UAT1', 'UAT2'], 'horizontal')
 
 promo_rg = gp.LabelRadiogroup(app, 'Promotion', ['Promo', 'Full Rate'], 'horizontal')
 
