@@ -1,4 +1,8 @@
 import gooeypie as gp
+import pandas as pd
+import json
+import requests
+import threading
 
 
 urls = {
@@ -11,6 +15,17 @@ urls = {
         'uat': 'https://ws-uat.suddenlink.cequel3.com/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering',
         'uat1': 'https://ws-uat.suddenlink.cequel3.com/uat1/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering',
         'uat2': 'https://ws-uat.suddenlink.cequel3.com/uat2/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering'
+    }
+}
+
+payloads = {
+    'uow': {
+        'opt': '''{{"productOfferingsRequest":{{"customerInteractionId":"1228012","accountDetails":{{"clust":"{}","corp":"{}","cust":"1","disconnectedDate": "2018-08-31T00:00:00-05:00","ftax":"72","hfstatus":"3","house":"test","id":0,"mkt":"{}","service_housenbr":"{}","service_apt": "test","servicestreetaddr":"{}","service_aptn": "test","service_city":"{}","service_state":"{}","service_zipcode":"{}"}},"newCustomer":true,"sessionId":"LDPDPJCBBH08VVL9KKY","shoppingCartId":"FTJXQYDN"}}}}''',
+        'sdl': '''{{"productOfferingsRequest":{{"customerInteractionId":"1228012","eligibilityID": "{}","accountDetails":{{"clust":"{}","corp":"{}","cust":"1","ftax":"{}","hfstatus":"3","house":"test","id":0,"mkt":"{}","service_housenbr":"{}","servicestreetaddr":"{}","service_aptn": "test","service_city":"{}","service_state":"{}","service_zipcode":"{}","tdrop": "O"}},"newCustomer":true,"sessionId":"LDPDPJCBBH08VVL9KKY","shoppingCartId":"FTJXQYDN","footprint": "suddenlink"}}}}'''
+    },
+    'dsa': {
+        'opt': '''{{"salesContext":{{"localeString":"en_US","salesChannel":"DSL"}},"searchProductOfferingFilterInfo":{{"oolAvailable":true,"ovAvailable":true,"ioAvailable":true,"includeExpiredOfferings":false,"salesRuleContext":{{"customerProfile":{{"anonymous":true}},"customerInfo":{{"customerType":"R","newCustomer":true,"orderType":"Install","isPromotion":{},"eligibilityID":"test"}}}},"eligibilityStatus":[{{"code":"EA"}}]}},"offeringReadMask":{{"value":"SUMMARY"}},"checkCustomerProductOffering":false,"locale":"en_US","cartId":"FTJXQYDN","serviceAddress":{{"apt":"test","fta":"40","street":"test","city":"test","state":"test","zipcode":"test","type":"","clusterCode":"{}","mkt":"{}","corp":"{}","house":"test","cust":"1"}},"generics":false}}''',
+        'sdl': '''{{"salesContext":{{"localeString":"en_US","salesChannel":"DSL"}},"searchProductOfferingFilterInfo":{{"oolAvailable":true,"ovAvailable":true,"ioAvailable":true,"includeExpiredOfferings":false,"salesRuleContext":{{"customerProfile":{{"anonymous":true}},"customerInfo":{{"customerType":"R","newCustomer":true,"orderType":"Install","isPromotion":{},"eligibilityID":"{}"}}}},"eligibilityStatus":[{{"code":"EA"}}]}},"offeringReadMask":{{"value":"SUMMARY"}},"checkCustomerProductOffering":false,"locale":"en_US","cartId":"FTJXQYDN","serviceAddress":{{"apt":"test","fta":"{}","street":"test","city":"test","state":"test","zipcode":"test","type":"","clusterCode":"{}","mkt":"{}","corp":"{}","house":"test","cust":"1"}},"generics":false}}'''
     }
 }
 
@@ -32,17 +47,27 @@ markets_clusters = {
     }
 }
 
-file = None
+file_path = None
+final_dict = {}
+offers = None
 
 def get_input_excel(event):
-    global file
-    file = input_file_window.open()
+    global file_path, final_dict
+    file_path = input_file_window.open()
     try:
-        input_file_lbl.text = file.split('/')[-1]
+        input_file_lbl.text = file_path.split('/')[-1]
     except AttributeError:
         print("No file was selected, ignoring error")
     else:
         input_file_lbl.color = 'green'
+        data = pd.read_excel(file_path, skiprows=1, header=None, index_col=None, usecols='A:D', names=['ID', 'Gathering Name', 'Gathering Description', 'Gathering Price'])
+        final_dict.clear()
+        for _, row in data.iterrows():
+            final_dict[str(row['ID'])] = {
+                'Gathering Name':row['Gathering Name'],
+                'Gathering Description': row['Gathering Description'],
+                'Gathering Price': f"{row['Gathering Price']:.2f}" if row['Gathering Price'] else ''
+                }
 
 
 def set_market_cluster(event):
@@ -77,31 +102,121 @@ def sanitize_eid(event):
     if len(event.widget.text) > 5:
         event.widget.text = event.widget.text[:5]
 
-def validate_submit_values(event):
-    if not all((file,
-          proposal_rg.selected,
-          channel_rg.selected,
-          env_rg.selected,
-          promo_rg.selected,
-          corp_inp.text,
-          market_dd.selected,
-          cluster_dd.selected,
-          ftax_inp.text or ftax_inp.disabled,
-          eid_inp.text or eid_inp.disabled)
-          ):
+def validate_submit_values():
+    if not file_path:
+        app.alert("Error", "Please select a file!", "error")
+        return
+    if not all((proposal_rg.selected,channel_rg.selected,env_rg.selected,promo_rg.selected,corp_inp.text,market_dd.selected,cluster_dd.selected,ftax_inp.text or ftax_inp.disabled,eid_inp.text or eid_inp.disabled)):
         app.alert('Error', 'Please enter all values', 'error')
         return
-    print(file,
-          proposal_rg.selected,
-          channel_rg.selected,
-          env_rg.selected,
-          promo_rg.selected,
-          corp_inp.text,
-          market_dd.selected,
-          cluster_dd.selected,
-          ftax_inp.text or ftax_inp.disabled,
-          eid_inp.text or eid_inp.disabled,
-          )
+    
+    progress_bar.start(5)
+    submit_btn.disabled = True
+    app.update()
+    
+    proposal = 'opt' if proposal_rg.selected == 'Optimum' else 'sdl'
+    channel = channel_rg.selected.split('/')[-1].lower()
+    env = env_rg.selected.lower()
+    promo = 'true' if promo_rg.selected == 'Promotional' else 'false'
+    corp = corp_inp.text
+    market = market_dd.selected
+    cluster = cluster_dd.selected
+    ftax = ftax_inp.text or ftax_inp.disabled
+    eid = eid_inp.text or eid_inp.disabled
+    
+    addr_loc, addr_street, addr_city, addr_state, addr_zip = get_address(corp)
+    url = urls[channel][env]
+    
+    match (channel, proposal):
+        case ('uow', 'opt'):
+            parameters = (cluster, corp, market, addr_loc, addr_street, addr_city, addr_state, addr_zip)
+        case ('uow', 'sdl'):
+            parameters = (eid, cluster, corp, ftax, market, addr_loc, addr_street, addr_city, addr_state, addr_zip)
+        case ('dsa', 'opt'):
+            parameters = (promo, cluster, market, corp)
+        case ('dsa', 'sdl'):
+            parameters = (promo, eid, ftax, cluster, market, corp)
+    
+    payload = payloads[channel][proposal].format(*parameters)
+    request = json.loads(payload)
+    
+    if channel == 'uow':
+        res = requests.post(url, json=request, auth=('unittest', 'test01')).json()
+        offers = res["productOfferings"]["productOfferingResults"]
+    else:
+        res = requests.post(url, json=request, verify=False).json()
+        offers = res["searchProductOfferingReturn"]["productOfferingResults"]
+    
+    if not offers:
+        app.alert('Error', 'No offers returned, please use a different combination and try again', 'error')
+        return
+    
+    with open('temp.json', 'w') as f:
+        f.write(json.dumps(offers, indent=4))
+
+    if mobile_offers_cb.checked:
+        title = 'mobileTitle'
+        description = 'mobileDescription'
+        price = 'mobileDefaultPrice'
+    else:
+        title = 'title'
+        description = 'description'
+        price = 'defaultPrice'
+    
+    for offer in offers:
+        if offer['matchingProductOffering']['ID'] in final_dict.keys():
+            final_dict[offer['matchingProductOffering']['ID']].update({
+                "EPC Name": offer['matchingProductOffering'][title],
+                "EPC Description": offer['matchingProductOffering'][description],
+                "EPC Price": f"{float(offer['matchingProductOffering'][price].split(':')[1]):.2f}" if offer['matchingProductOffering'][price] else ''
+            })
+    
+    
+    pass_list = []
+    fail_list = []
+    na_list = []
+    
+    for offer, attributes in final_dict.items():
+        try:
+            name_check = attributes['Gathering Name'] == attributes['EPC Name']
+            description_check = (attributes['Gathering Description'] == attributes['EPC Description']) or not description_cb.checked
+            price_check = (attributes['Gathering Price'] == attributes['EPC Price']) or not price_cb.checked
+        except KeyError:
+            temp = [offer, *attributes.values(), 'Not found', 'Not found', 'Not found', 'NA']
+            na_list.append(temp)
+        else:
+            if all((name_check, description_check, price_check)):
+                temp = [offer, *attributes.values(), 'Pass']
+                pass_list.append(temp)
+            else:
+                temp = [offer, *attributes.values(), 'Fail']
+                fail_list.append(temp)
+    
+    save_excel('Pass.xlsx', pass_list)
+    save_excel('Fail.xlsx', fail_list)
+    save_excel('NA.xlsx', na_list)
+    
+    
+    progress_bar.stop()
+    progress_bar.value = 0
+    submit_btn.disabled = False
+    app.update()
+    app.alert("Result", f"Statistics of the run:\n\nTotal: {len(final_dict)}\n\nPass: {len(pass_list)}\n\nFail: {len(fail_list)}\n\nNA: {len(na_list)}", "info")
+
+
+headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
+def save_excel(name, data):
+    global headers
+    df = pd.DataFrame(data, columns=headers)
+    with pd.ExcelWriter(name, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False)
+    
+
+def get_address(corp):
+    for k, v in corps.items():
+        if corp in k:
+            address = v.split()
+            return address[0], ' '.join(address[1:3]), address[3], address[4], address[5]
 
 
 app = gp.GooeyPieApp('Offer Name Description Price Checker')
@@ -122,7 +237,8 @@ channel_rg.add_event_listener('change', toggle_promo)
 
 env_rg = gp.LabelRadiogroup(app, 'Environment', ['UAT', 'UAT1', 'UAT2'], 'horizontal')
 
-promo_rg = gp.LabelRadiogroup(app, 'Promotion', ['Promo', 'Full Rate'], 'horizontal')
+promo_rg = gp.LabelRadiogroup(app, 'Promotion', ['Promotional', 'Full Rate'], 'horizontal')
+promo_rg.selected_index = 0
 
 corp_container = gp.Container(app)
 
@@ -160,12 +276,14 @@ price_cb = gp.Checkbox(checkbox_container, 'Price')
 mobile_offers_container = gp.Container(checkbox_container)
 mobile_offers_cb = gp.Checkbox(mobile_offers_container, 'Checking Mobile Offers?')
 
-submit_btn = gp.Button(checkbox_container, 'Submit', validate_submit_values)
+submit_btn = gp.Button(checkbox_container, 'Submit', lambda x: threading.Thread(target=validate_submit_values).start())
 
-app.set_grid(8, 4)
+progress_bar = gp.Progressbar(app, 'indeterminate')
 
-app.add(input_file_btn, 1, 1, column_span=4, align='center', )
-app.add(input_file_lbl, 2, 1, column_span=4, align='center', )
+app.set_grid(9, 4)
+
+app.add(input_file_btn, 1, 1, column_span=4, align='center')
+app.add(input_file_lbl, 2, 1, column_span=4, align='center')
 
 app.add(proposal_rg, 3, 1, column_span=2, fill=True)
 
@@ -177,12 +295,14 @@ app.add(promo_rg, 4, 3, column_span=2, fill=True)
 
 app.add(corp_container, 5, 1, column_span=4, fill=True)
 
+app.add(progress_bar, 9, 2, column_span=2, align='center')
+
 corp_container.set_grid(1, 5)
 
 corp_container.add(corp_lbl, 1, 2, align='right')
 corp_container.add(corp_inp, 1, 3)
 
-app.add(container, 6, 1, column_span=4, row_span=2)
+app.add(container, 6, 1, column_span=4, row_span=2, fill=True)
 
 container.set_grid(2, 4)
 
