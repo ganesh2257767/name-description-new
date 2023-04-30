@@ -4,6 +4,7 @@ import json
 import requests
 import threading
 
+headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
 
 urls = {
     'uow': {
@@ -33,7 +34,8 @@ corps = {
     ('7801', '7816'): '61 SLEEPY LN HICKSVILLE NY 11801',
     ('7858', '7837'): '305 WALTER AVE MINEOLA NY 11501',
     ('7702', '7704', '7710', '7715'): '3107 BAYLOR ST LUBBOCK TX 79415',
-    ('7709', '7712'): '531 ROANE ST CHARLESTON WV 25302'
+    ('7709', '7712'): '531 ROANE ST CHARLESTON WV 25302',
+    ('7701', '7703', '7705', '7706', '7707', '7708', '7711', '7713', '7714'): '123 TEST TEST TEST TEST 12345'
 }
 
 markets_clusters = {
@@ -74,8 +76,7 @@ def set_market_cluster(event):
     market_dd.items = markets_clusters[event.widget.selected.lower()]['markets']
     cluster_dd.items = markets_clusters[event.widget.selected.lower()]['clusters']
     
-    eid_inp.disabled = True if event.widget.selected == 'Optimum' else False
-    ftax_inp.disabled = True if event.widget.selected == 'Optimum' else False
+    eid_inp.disabled, ftax_inp.disabled = (True, True) if event.widget.selected == 'Optimum' else (False, False)
     
 
 def toggle_promo(event):
@@ -141,13 +142,28 @@ def validate_submit_values():
     request = json.loads(payload)
     
     if channel == 'uow':
-        res = requests.post(url, json=request, auth=('unittest', 'test01')).json()
-        offers = res["productOfferings"]["productOfferingResults"]
+        try:
+            res = requests.post(url, json=request, auth=('unittest', 'test01'))
+        except requests.exceptions.ConnectionError:
+            handle_app_state_change_on_exceptions()
+            app.alert("VPN Error", "Please connect to VPN or check your network connection!")
+            return
+        else:
+            res = res.json()
+            offers = res["productOfferings"]["productOfferingResults"]
     else:
-        res = requests.post(url, json=request, verify=False).json()
-        offers = res["searchProductOfferingReturn"]["productOfferingResults"]
+        try:
+            res = requests.post(url, json=request, verify=False)
+        except requests.exceptions.ConnectionError:
+            handle_app_state_change_on_exceptions()
+            app.alert("VPN Error", "Please connect to VPN or check your network connection!")
+            return
+        else:
+            res = res.json()
+            offers = res["searchProductOfferingReturn"]["productOfferingResults"]
     
     if not offers:
+        handle_app_state_change_on_exceptions()
         app.alert('Error', 'No offers returned, please use a different combination and try again', 'error')
         return
     
@@ -196,15 +212,18 @@ def validate_submit_values():
     save_excel('Fail.xlsx', fail_list)
     save_excel('NA.xlsx', na_list)
     
-    
+    handle_app_state_change_on_exceptions()
+    app.alert("Result", f"Statistics of the run:\n\nTotal: {len(final_dict)}\n\nPass: {len(pass_list)}\n\nFail: {len(fail_list)}\n\nNA: {len(na_list)}", "info")
+    return
+
+
+def handle_app_state_change_on_exceptions():
     progress_bar.stop()
     progress_bar.value = 0
     submit_btn.disabled = False
     app.update()
-    app.alert("Result", f"Statistics of the run:\n\nTotal: {len(final_dict)}\n\nPass: {len(pass_list)}\n\nFail: {len(fail_list)}\n\nNA: {len(na_list)}", "info")
+    return
 
-
-headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
 def save_excel(name, data):
     global headers
     df = pd.DataFrame(data, columns=headers)
