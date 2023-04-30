@@ -1,0 +1,1339 @@
+[
+    {
+        "matchingProductOffering": {
+            "ID": "2444701",
+            "title": "Optimum Advantage 50",
+            "description": "Up to 50Mbps download and 5Mbps upload^Free Smart Router and Modem^Internet Protection powered by McAfee^Up to 3 WiFi registered devices",
+            "defaultPrice": "A:14.99:mo:12 mos",
+            "startingPrice": "14.99",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "internetTier": "0",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "",
+            "mobileDefaultPrice": "",
+            "mobileDescription": ""
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2041421",
+            "title": "1 Gig Internet and Broadcast Basic_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^50+ channels including all major networks",
+            "defaultPrice": "A:105:mo:12 mos",
+            "startingPrice": "105",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "40",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet and Broadcast Basic_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:135:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^50+ channels including all major networks",
+            "mobileStartingPrice": "135",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2042641",
+            "title": "1 Gig Internet, Broadcast Basic and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^50+ channels including all major networks",
+            "defaultPrice": "A:125:mo:12 mos",
+            "startingPrice": "125",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "40",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet, Broadcast Basic and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:155:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^50+ channels including all major networks",
+            "mobileStartingPrice": "155",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2043651",
+            "title": "300 Mbps Internet and Broadcast Basic_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^50+ channels including all major networks",
+            "defaultPrice": "A:75:mo:12 mos",
+            "startingPrice": "75",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "40",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet and Broadcast Basic_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:110:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^50+ channels including all major networks",
+            "mobileStartingPrice": "110",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2044851",
+            "title": "300 Mbps Internet, Broadcast Basic and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^50+ channels including all major networks",
+            "defaultPrice": "A:95:mo:12 mos",
+            "startingPrice": "95",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "40",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet, Broadcast Basic and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:130:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^50+ channels including all major networks",
+            "mobileStartingPrice": "130",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2040251",
+            "title": "500 Mbps Internet and Broadcast Basic_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^50+ channels including all major networks",
+            "defaultPrice": "A:95:mo:12 mos",
+            "startingPrice": "95",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "40",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet and Broadcast Basic_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:125:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^50+ channels including all major networks",
+            "mobileStartingPrice": "125",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2039021",
+            "title": "500 Mbps Internet, Broadcast Basic and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^50+ channels including all major networks",
+            "defaultPrice": "A:115:mo:12 mos",
+            "startingPrice": "115",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "40",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet, Broadcast Basic and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:145:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^50+ channels including all major networks",
+            "mobileStartingPrice": "145",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1892681",
+            "title": "1 Gig Internet",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload",
+            "defaultPrice": "A:70:mo:12 mos",
+            "startingPrice": "70",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet Mobile Unlimited",
+            "mobileDefaultPrice": "A:100:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload",
+            "mobileStartingPrice": "100",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1900221",
+            "title": "1 Gig Internet Core TV and Phone_Gateway",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "defaultPrice": "A:175:mo:12 mos",
+            "startingPrice": "175",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "10",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet Core TV and Phone_Gateway Mobile Unlimited",
+            "mobileDefaultPrice": "A:205:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "mobileStartingPrice": "205",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1897831",
+            "title": "1 Gig Internet Premier TV and Phone_Gateway",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "defaultPrice": "A:215:mo:12 mos",
+            "startingPrice": "215",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "30",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet Premier TV and Phone_Gateway Mobile Unlimited",
+            "mobileDefaultPrice": "A:245:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "mobileStartingPrice": "245",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1895421",
+            "title": "1 Gig Internet Select TV and Phone_Gateway",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "defaultPrice": "A:195:mo:12 mos",
+            "startingPrice": "195",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "20",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet Select TV and Phone_Gateway Mobile Unlimited",
+            "mobileDefaultPrice": "A:225:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "mobileStartingPrice": "225",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2136401",
+            "title": "1 Gig Internet and Core TV_Gateway",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "defaultPrice": "A:155:mo:12 mos",
+            "startingPrice": "155",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "10",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet and Core TV_Gateway Mobile Unlimited",
+            "mobileDefaultPrice": "A:185:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "mobileStartingPrice": "185",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1893241",
+            "title": "1 Gig Internet and Phone",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload",
+            "defaultPrice": "A:90:mo:12 mos",
+            "startingPrice": "90",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet and Phone Mobile Unlimited",
+            "mobileDefaultPrice": "A:120:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload",
+            "mobileStartingPrice": "120",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2137651",
+            "title": "1 Gig Internet and Premier TV_Gateway",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "defaultPrice": "A:195:mo:12 mos",
+            "startingPrice": "195",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "30",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet and Premier TV_Gateway Mobile Unlimited",
+            "mobileDefaultPrice": "A:225:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "mobileStartingPrice": "225",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2138881",
+            "title": "1 Gig Internet and Select TV_Gateway",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "defaultPrice": "A:175:mo:12 mos",
+            "startingPrice": "175",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "20",
+            "internetTier": "4",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "1 Gig Internet and Select TV_Gateway Mobile Unlimited",
+            "mobileDefaultPrice": "A:205:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 940Mbps download and 35Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "mobileStartingPrice": "205",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "586451",
+            "title": "300 Mbps Internet",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload",
+            "defaultPrice": "A:40:mo:12 mos",
+            "startingPrice": "40",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet Mobile Unlimited",
+            "mobileDefaultPrice": "A:75:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload",
+            "mobileStartingPrice": "75",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "575091",
+            "title": "300 Mbps Internet, Core TV and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "defaultPrice": "A:145:mo:12 mos",
+            "startingPrice": "145",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "10",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet, Core TV and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:180:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "mobileStartingPrice": "180",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "573661",
+            "title": "300 Mbps Internet, Premier TV and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "defaultPrice": "A:185:mo:12 mos",
+            "startingPrice": "185",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "30",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet, Premier TV and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:220:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "mobileStartingPrice": "220",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "571591",
+            "title": "300 Mbps Internet, Select TV and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "defaultPrice": "A:165:mo:12 mos",
+            "startingPrice": "165",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "20",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet, Select TV and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:200:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "mobileStartingPrice": "200",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2141251",
+            "title": "300 Mbps Internet and Core TV_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "defaultPrice": "A:125:mo:12 mos",
+            "startingPrice": "125",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "10",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet and Core TV_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:160:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "mobileStartingPrice": "160",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "579801",
+            "title": "300 Mbps Internet and Phone",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload",
+            "defaultPrice": "A:60:mo:12 mos",
+            "startingPrice": "60",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet and Phone Mobile Unlimited",
+            "mobileDefaultPrice": "A:95:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload",
+            "mobileStartingPrice": "95",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2143701",
+            "title": "300 Mbps Internet and Premier TV_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "defaultPrice": "A:165:mo:12 mos",
+            "startingPrice": "165",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "30",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet and Premier TV_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:200:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "mobileStartingPrice": "200",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2146111",
+            "title": "300 Mbps Internet and Select TV_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "defaultPrice": "A:145:mo:12 mos",
+            "startingPrice": "145",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "20",
+            "internetTier": "2",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "300 Mbps Internet and Select TV_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:180:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 300Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "mobileStartingPrice": "180",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1971901",
+            "title": "500 Mbps Internet",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload",
+            "defaultPrice": "A:60:mo:12 mos",
+            "startingPrice": "60",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet Mobile Unlimited",
+            "mobileDefaultPrice": "A:90:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload",
+            "mobileStartingPrice": "90",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1956651",
+            "title": "500 Mbps Internet, Core TV and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "defaultPrice": "A:165:mo:12 mos",
+            "startingPrice": "165",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "10",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet, Core TV and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:195:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "mobileStartingPrice": "195",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1957921",
+            "title": "500 Mbps Internet, Premier TV and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "defaultPrice": "A:205:mo:12 mos",
+            "startingPrice": "205",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "30",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet, Premier TV and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:235:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "mobileStartingPrice": "235",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1959171",
+            "title": "500 Mbps Internet, Select TV and Phone_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "defaultPrice": "A:185:mo:12 mos",
+            "startingPrice": "185",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "20",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet, Select TV and Phone_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:215:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "mobileStartingPrice": "215",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2147331",
+            "title": "500 Mbps Internet and Core TV_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "defaultPrice": "A:145:mo:12 mos",
+            "startingPrice": "145",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "10",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet and Core TV_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:175:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^220+ channels including TNT, HGTV, & ESPN",
+            "mobileStartingPrice": "175",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "1970811",
+            "title": "500 Mbps Internet and Phone",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload",
+            "defaultPrice": "A:80:mo:12 mos",
+            "startingPrice": "80",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "6111",
+                            "name": "OV",
+                            "description": "OV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet and Phone Mobile Unlimited",
+            "mobileDefaultPrice": "A:110:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload",
+            "mobileStartingPrice": "110",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2148591",
+            "title": "500 Mbps Internet and Premier TV_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "defaultPrice": "A:185:mo:12 mos",
+            "startingPrice": "185",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "30",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet and Premier TV_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:215:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^420+ channels including HBO Max, STARZ, & Showtime",
+            "mobileStartingPrice": "215",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2149831",
+            "title": "500 Mbps Internet and Select TV_Altice One",
+            "description": "Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "defaultPrice": "A:165:mo:12 mos",
+            "startingPrice": "165",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "20",
+            "internetTier": "3",
+            "offerAttribute": "SELF INSTALL",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "500 Mbps Internet and Select TV_Altice One Mobile Unlimited",
+            "mobileDefaultPrice": "A:195:mo:12 mos",
+            "mobileDescription": "$45 Unlimited Mobile Data included in offer price^Includes 20 GB high speed mobile data^$20 Mobile activation fee per line^Customer has 30 days to sign up for Mobile to receive fixed line discount^Mobile and Fixed line account first/last name, email, and house number must match^Smart WiFi 6 with intelligent coverage^Up to 500Mbps download and 20Mbps upload^Voice activated remote & 4K Ultra HD^340+ channels including Nick Jr, DIY Network, & CMT",
+            "mobileStartingPrice": "195",
+            "mobilePriceFrequency": "mo",
+            "mobilePriceDuration": "12 mos"
+        }
+    },
+    {
+        "matchingProductOffering": {
+            "ID": "2952871",
+            "title": "Optimum Advantage 50 and Basic TV",
+            "description": "Up to 50Mbps download and 5Mbps upload^Free Smart Router and Modem^Internet Protection powered by McAfee^Up to 3 WiFi registered devices^50+ channels including all major networks",
+            "defaultPrice": "A:44.99:mo:12 mos",
+            "startingPrice": "44.99",
+            "priceFrequency": "mo",
+            "priceDuration": "12 mos",
+            "videoTier": "4",
+            "internetTier": "0",
+            "productOfferingProductSpecs": [
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "4831",
+                            "name": "iO",
+                            "description": "iO TV product"
+                        }
+                    ]
+                },
+                {
+                    "productSpecs": [
+                        {
+                            "ID": "5881",
+                            "name": "OOL",
+                            "description": "OOL product"
+                        }
+                    ]
+                }
+            ],
+            "mobileTitle": "",
+            "mobileDefaultPrice": "",
+            "mobileDescription": ""
+        }
+    }
+]

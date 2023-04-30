@@ -1,0 +1,44 @@
+SDL UOW
+
+'''{{"productOfferingsRequest":{{"customerInteractionId":"1228012","eligibilityID": "{}","accountDetails":{{"clust":"{}","corp":"{}","cust":"1","ftax":"{}","hfstatus":"3","house":"test","id":0,"mkt":"{}","service_housenbr":"test","servicestreetaddr":"test","service_aptn": "test","service_city":"test","service_state":"test","service_zipcode":"test","tdrop": "O"}},"newCustomer":true,"sessionId":"LDPDPJCBBH08VVL9KKY","shoppingCartId":"FTJXQYDN","footprint": "suddenlink"}}}}'''
+order of variables to pass
+eid
+cluster
+corp
+ftax
+market
+addr_loc
+addr_street
+addr_city
+addr_state
+addr_zip
+
+OPT UOW
+
+'''{{"productOfferingsRequest":{{"customerInteractionId":"1228012","accountDetails":{{"clust":"{}","corp":"{}","cust":"1","disconnectedDate": "2018-08-31T00:00:00-05:00","ftax":"72","hfstatus":"3","house":"test","id":0,"mkt":"{}","service_housenbr":"{}","service_apt": "test","servicestreetaddr":"{}","service_aptn": "test","service_city":"{}","service_state":"{}","service_zipcode":"{}"}},"newCustomer":true,"sessionId":"LDPDPJCBBH08VVL9KKY","shoppingCartId":"FTJXQYDN"}}}}'''
+order of variables to pass
+cluster
+corp
+market
+addr_loc
+addr_street
+addr_city
+addr_state
+addr_zip
+
+
+SDL DSA
+'''{{"salesContext":{{"localeString":"en_US","salesChannel":"DSL"}},"searchProductOfferingFilterInfo":{{"oolAvailable":true,"ovAvailable":true,"ioAvailable":true,"includeExpiredOfferings":false,"salesRuleContext":{{"customerProfile":{{"anonymous":true}},"customerInfo":{{"customerType":"R","newCustomer":true,"orderType":"Install","isPromotion":{},"eligibilityID":"{}"}}}},"eligibilityStatus":[{{"code":"EA"}}]}},"offeringReadMask":{{"value":"SUMMARY"}},"checkCustomerProductOffering":false,"locale":"en_US","cartId":"FTJXQYDN","serviceAddress":{{"apt":"test","fta":"{}","street":"test","city":"test","state":"test","zipcode":"test","type":"","clusterCode":"{}","mkt":"{}","corp":"{}","house":"test","cust":"1"}},"generics":false}}'''
+promo
+eid
+ftax
+cluster
+market
+corp
+
+OPT DSA
+'''{{"salesContext":{{"localeString":"en_US","salesChannel":"DSL"}},"searchProductOfferingFilterInfo":{{"oolAvailable":true,"ovAvailable":true,"ioAvailable":true,"includeExpiredOfferings":false,"salesRuleContext":{{"customerProfile":{{"anonymous":true}},"customerInfo":{{"customerType":"R","newCustomer":true,"orderType":"Install","isPromotion":{},"eligibilityID":"test"}}}},"eligibilityStatus":[{{"code":"EA"}}]}},"offeringReadMask":{{"value":"SUMMARY"}},"checkCustomerProductOffering":false,"locale":"en_US","cartId":"FTJXQYDN","serviceAddress":{{"apt":"test","fta":"40","street":"test","city":"test","state":"test","zipcode":"test","type":"","clusterCode":"{}","mkt":"{}","corp":"{}","house":"test","cust":"1"}},"generics":false}}'''
+promo
+cluster
+market
+corp
