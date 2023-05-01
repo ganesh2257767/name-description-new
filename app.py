@@ -6,11 +6,11 @@ import threading
 
 headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
 
-file_path = None
-offers = None
-final_dict = {}
+file_path: str = None
+offers: dict = None
+final_dict: dict = {}
 
-urls = {
+urls: dict = {
     'uow': {
         'uat': 'https://ws-uat.suddenlink.com/optimum-online-order-ws/rest/OfferService/getBundles',
         'uat1': 'https://ws-uat.suddenlink.com/uat1/optimum-online-order-ws/rest/OfferService/getBundles',
@@ -23,7 +23,7 @@ urls = {
     }
 }
 
-payloads = {
+payloads: dict = {
     'uow': {
         'opt': '''{{"productOfferingsRequest":{{"customerInteractionId":"1228012","accountDetails":{{"clust":"{}","corp":"{}","cust":"1","disconnectedDate": "2018-08-31T00:00:00-05:00","ftax":"72","hfstatus":"3","house":"test","id":0,"mkt":"{}","service_housenbr":"{}","service_apt": "test","servicestreetaddr":"{}","service_aptn": "test","service_city":"{}","service_state":"{}","service_zipcode":"{}"}},"newCustomer":true,"sessionId":"LDPDPJCBBH08VVL9KKY","shoppingCartId":"FTJXQYDN"}}}}''',
         'sdl': '''{{"productOfferingsRequest":{{"customerInteractionId":"1228012","eligibilityID": "{}","accountDetails":{{"clust":"{}","corp":"{}","cust":"1","ftax":"{}","hfstatus":"3","house":"test","id":0,"mkt":"{}","service_housenbr":"{}","servicestreetaddr":"{}","service_aptn": "test","service_city":"{}","service_state":"{}","service_zipcode":"{}","tdrop": "O"}},"newCustomer":true,"sessionId":"LDPDPJCBBH08VVL9KKY","shoppingCartId":"FTJXQYDN","footprint": "suddenlink"}}}}'''
@@ -34,7 +34,7 @@ payloads = {
     }
 }
 
-corps = {
+corps: dict = {
     ('7801', '7816'): '61 SLEEPY LN HICKSVILLE NY 11801',
     ('7858', '7837'): '305 WALTER AVE MINEOLA NY 11501',
     ('7702', '7704', '7710', '7715'): '3107 BAYLOR ST LUBBOCK TX 79415',
@@ -42,7 +42,7 @@ corps = {
     ('7701', '7703', '7705', '7706', '7707', '7708', '7711', '7713', '7714'): '123 TEST TEST TEST TEST 12345'
 }
 
-markets_clusters = {
+markets_clusters: dict = {
     'optimum': {
         'markets': ['K', 'M', 'N', 'G'],
         'clusters': [6, 10, 86]
@@ -53,14 +53,14 @@ markets_clusters = {
     }
 }
 
-def get_input_excel(event):
+def get_input_excel(event: gp.widgets.GooeyPieEvent) -> None:
     """
     get_input_excel Reads the input excel file.
 
     Reads the excel file uploaded and comverts the data into a dictionary that can be used for further processing.
 
-    :param event: Reference of the widget that called this function.
-    :type event: gp.Widget
+    :param event: Reference of the widget/event that called this function.
+    :type event: gp.widgets.GooeyPieEvent
     """
     global file_path, final_dict
     file_path = input_file_window.open()
@@ -80,14 +80,14 @@ def get_input_excel(event):
                 }
 
 
-def set_market_cluster(event):
+def set_market_cluster(event: gp.widgets.GooeyPieEvent) -> None:
     """
     set_market_cluster Sets the market and cluster dropdopwns.
 
     Sets the market and cluster dropdopwn based on if OPT or SDL is selected as both the proposals have a different set of markets and clusters.
 
     :param event: Reference of the widget that called this function.
-    :type event: gp.Widget
+    :type event: gp.widgets.GooeyPieEvent
     """
     market_dd.items = markets_clusters[event.widget.selected.lower()]['markets']
     cluster_dd.items = markets_clusters[event.widget.selected.lower()]['clusters']
@@ -95,19 +95,19 @@ def set_market_cluster(event):
     eid_inp.disabled, ftax_inp.disabled = (True, True) if event.widget.selected == 'Optimum' else (False, False)
     
 
-def toggle_promo(event):
+def toggle_promo(event: gp.widgets.GooeyPieEvent) -> None:
     """
     toggle_promo Disables/enables the promo radio buttons.
 
     Disables or enables the promo radio buttons based on whether UOW is selected or not as UOW does not have the concept of full rate offers.
 
     :param event: Reference of the widget that called this function.
-    :type event: gp.Widget
+    :type event: gp.widgets.GooeyPieEvent
     """
     promo_rg.disabled = True if event.widget.selected == 'UOW' else False
 
 
-def sanitize_corp(event):
+def sanitize_corp(event: gp.widgets.GooeyPieEvent) -> None:
     """
     sanitize_corp Only allows the corp field to take in numerical values and a max length of 4 digits.
 
@@ -115,7 +115,7 @@ def sanitize_corp(event):
     This function makes sure the corp values are digits and that the max length doesn't exceed 4 characters.
 
     :param event: Reference of the widget that called this function
-    :type event: gp.Widget
+    :type event: gp.widgets.GooeyPieEvent
     """
     if event.widget.text and not event.widget.text[-1].isnumeric():
         event.widget.text = event.widget.text[:-1]
@@ -123,14 +123,14 @@ def sanitize_corp(event):
         event.widget.text = event.widget.text[:4]
 
     
-def sanitize_ftax(event):
+def sanitize_ftax(event: gp.widgets.GooeyPieEvent) -> None:
     """
     sanitize_ftax Only allows the ftax field to take in numerical values and a max length of 2 digits.
 
     Ftax values are 2 digit identifiers and as such this function makes sure the user input is numerical and has a max length of 2 digits.
 
     :param event: Reference of the widget that called this function
-    :type event: gp.Widget
+    :type event: gp.widgets.GooeyPieEvent
     """
     if event.widget.text and not event.widget.text[-1].isnumeric():
         event.widget.text = event.widget.text[:-1]
@@ -138,21 +138,21 @@ def sanitize_ftax(event):
         event.widget.text = event.widget.text[:2]
     
 
-def sanitize_eid(event):
+def sanitize_eid(event: gp.widgets.GooeyPieEvent) -> None:
     """
     sanitize_eid Only allows 5 characters and makes the entry uppercase.
 
     EIDs are alphanumerical identifiers of length 5, and so this function makes sure the length of the input is restricted to 5 and is converted to uppercase.
 
     :param event: Reference of the widget that called this function
-    :type event: gp.Widget
+    :type event: gp.widgets.GooeyPieEvent
     """
     event.widget.text = event.widget.text.upper()
     if len(event.widget.text) > 5:
         event.widget.text = event.widget.text[:5]
 
 
-def validate_submit_values():
+def validate_submit_values() -> None:
     """
     validate_submit_values Main driver function which does all the processing.
 
@@ -247,9 +247,9 @@ def validate_submit_values():
             })
     
     
-    pass_list = []
-    fail_list = []
-    na_list = []
+    pass_list: list = []
+    fail_list: list = []
+    na_list: list = []
     
     for offer, attributes in final_dict.items():
         try:
@@ -276,7 +276,7 @@ def validate_submit_values():
     return
 
 
-def handle_app_state_change_on_exceptions():
+def handle_app_state_change_on_exceptions() -> None:
     """
     handle_app_state_change_on_exceptions Helper function to handle UI when exceptions occur.
 
@@ -288,7 +288,7 @@ def handle_app_state_change_on_exceptions():
     app.update()
 
 
-def save_excel(name, data):
+def save_excel(name: str, data: list):
     """
     save_excel Helper function to save data to an excel file.
     
@@ -301,12 +301,12 @@ def save_excel(name, data):
     :type data: List of lists
     """
     global headers
-    df = pd.DataFrame(data, columns=headers)
+    df: pd.DataFrame = pd.DataFrame(data, columns=headers)
     with pd.ExcelWriter(name, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False)
     
 
-def get_address(corp):
+def get_address(corp: str) -> tuple:
     """
     get_address Splits the address.
 
@@ -314,7 +314,7 @@ def get_address(corp):
 
     :param corp: Corp used while running the tool.
     :type corp: str
-    :return: Tupel of strings with the different address attributes.
+    :return: Tuple of strings with the different address attributes.
     :rtype: Tuple of strings
     """
     for k, v in corps.items():
@@ -323,117 +323,118 @@ def get_address(corp):
             return address[0], ' '.join(address[1:3]), address[3], address[4], address[5]
 
 
-app = gp.GooeyPieApp('Offer Name Description Price Checker')
+if __name__ == '__main__':
+    app = gp.GooeyPieApp('Offer Name Description Price Checker')
 
-input_file_window = gp.OpenFileWindow(app, 'Select input file')
-input_file_window.set_initial_folder('app')
-input_file_window.add_file_type("Excel files", '*.xlsx')
+    input_file_window = gp.OpenFileWindow(app, 'Select input file')
+    input_file_window.set_initial_folder('app')
+    input_file_window.add_file_type("Excel files", '*.xlsx')
 
-input_file_btn = gp.Button(app, 'Select file', get_input_excel)
-input_file_lbl = gp.StyleLabel(app, 'No file selected')
-input_file_lbl.color = 'red'
+    input_file_btn = gp.Button(app, 'Select file', get_input_excel)
+    input_file_lbl = gp.StyleLabel(app, 'No file selected')
+    input_file_lbl.color = 'red'
 
-proposal_rg = gp.LabelRadiogroup(app, 'Proposal', ['Optimum', 'Suddenlink'], 'horizontal')
-proposal_rg.add_event_listener('change', set_market_cluster)
+    proposal_rg = gp.LabelRadiogroup(app, 'Proposal', ['Optimum', 'Suddenlink'], 'horizontal')
+    proposal_rg.add_event_listener('change', set_market_cluster)
 
-channel_rg = gp.LabelRadiogroup(app, 'Channel', ['ISA/DSA', 'UOW'], 'horizontal')
-channel_rg.add_event_listener('change', toggle_promo)
+    channel_rg = gp.LabelRadiogroup(app, 'Channel', ['ISA/DSA', 'UOW'], 'horizontal')
+    channel_rg.add_event_listener('change', toggle_promo)
 
-env_rg = gp.LabelRadiogroup(app, 'Environment', ['UAT', 'UAT1', 'UAT2'], 'horizontal')
+    env_rg = gp.LabelRadiogroup(app, 'Environment', ['UAT', 'UAT1', 'UAT2'], 'horizontal')
 
-promo_rg = gp.LabelRadiogroup(app, 'Promotion', ['Promotional', 'Full Rate'], 'horizontal')
-promo_rg.selected_index = 0
+    promo_rg = gp.LabelRadiogroup(app, 'Promotion', ['Promotional', 'Full Rate'], 'horizontal')
+    promo_rg.selected_index = 0
 
-corp_container = gp.Container(app)
+    corp_container = gp.Container(app)
 
-corp_lbl = gp.Label(corp_container, 'Corp')
-corp_inp = gp.Input(corp_container)
-corp_inp.add_event_listener('change', sanitize_corp)
+    corp_lbl = gp.Label(corp_container, 'Corp')
+    corp_inp = gp.Input(corp_container)
+    corp_inp.add_event_listener('change', sanitize_corp)
 
-container = gp.Container(app)
+    container = gp.Container(app)
 
-market_lbl = gp.Label(container, 'Market')
-market_dd = gp.Dropdown(container, [])
+    market_lbl = gp.Label(container, 'Market')
+    market_dd = gp.Dropdown(container, [])
 
-cluster_lbl = gp.Label(container, 'Cluster')
-cluster_dd = gp.Dropdown(container, [])
+    cluster_lbl = gp.Label(container, 'Cluster')
+    cluster_dd = gp.Dropdown(container, [])
 
-ftax_lbl = gp.Label(container, 'Ftax')
-ftax_inp = gp.Input(container)
-ftax_inp.add_event_listener('change', sanitize_ftax)
+    ftax_lbl = gp.Label(container, 'Ftax')
+    ftax_inp = gp.Input(container)
+    ftax_inp.add_event_listener('change', sanitize_ftax)
 
-eid_lbl = gp.Label(container, 'EID')
-eid_inp = gp.Input(container)
-eid_inp.add_event_listener('change', sanitize_eid)
+    eid_lbl = gp.Label(container, 'EID')
+    eid_inp = gp.Input(container)
+    eid_inp.add_event_listener('change', sanitize_eid)
 
-checkbox_container = gp.LabelContainer(app, 'Parameters to Check')
+    checkbox_container = gp.LabelContainer(app, 'Parameters to Check')
 
-offer_id_cb = gp.Checkbox(checkbox_container, 'Offer ID', True)
-offer_id_cb.disabled = True
+    offer_id_cb = gp.Checkbox(checkbox_container, 'Offer ID', True)
+    offer_id_cb.disabled = True
 
-name_cb = gp.Checkbox(checkbox_container, 'Name', True)
-name_cb.disabled = True
+    name_cb = gp.Checkbox(checkbox_container, 'Name', True)
+    name_cb.disabled = True
 
-description_cb = gp.Checkbox(checkbox_container, 'Description')
-price_cb = gp.Checkbox(checkbox_container, 'Price')
+    description_cb = gp.Checkbox(checkbox_container, 'Description')
+    price_cb = gp.Checkbox(checkbox_container, 'Price')
 
-mobile_offers_container = gp.Container(checkbox_container)
-mobile_offers_cb = gp.Checkbox(mobile_offers_container, 'Checking Mobile Offers?')
+    mobile_offers_container = gp.Container(checkbox_container)
+    mobile_offers_cb = gp.Checkbox(mobile_offers_container, 'Checking Mobile Offers?')
 
-submit_btn = gp.Button(checkbox_container, 'Submit', lambda x: threading.Thread(target=validate_submit_values).start())
+    submit_btn = gp.Button(checkbox_container, 'Submit', lambda x: threading.Thread(target=validate_submit_values).start())
 
-progress_bar = gp.Progressbar(app, 'indeterminate')
+    progress_bar = gp.Progressbar(app, 'indeterminate')
 
-app.set_grid(9, 4)
+    app.set_grid(9, 4)
 
-app.add(input_file_btn, 1, 1, column_span=4, align='center')
-app.add(input_file_lbl, 2, 1, column_span=4, align='center')
+    app.add(input_file_btn, 1, 1, column_span=4, align='center')
+    app.add(input_file_lbl, 2, 1, column_span=4, align='center')
 
-app.add(proposal_rg, 3, 1, column_span=2, fill=True)
+    app.add(proposal_rg, 3, 1, column_span=2, fill=True)
 
-app.add(channel_rg, 3, 3, column_span=2, fill=True)
+    app.add(channel_rg, 3, 3, column_span=2, fill=True)
 
-app.add(env_rg, 4, 1, column_span=2, fill=True)
+    app.add(env_rg, 4, 1, column_span=2, fill=True)
 
-app.add(promo_rg, 4, 3, column_span=2, fill=True)
+    app.add(promo_rg, 4, 3, column_span=2, fill=True)
 
-app.add(corp_container, 5, 1, column_span=4, fill=True)
+    app.add(corp_container, 5, 1, column_span=4, fill=True)
 
-app.add(progress_bar, 9, 2, column_span=2, align='center')
+    app.add(progress_bar, 9, 2, column_span=2, align='center')
 
-corp_container.set_grid(1, 5)
+    corp_container.set_grid(1, 5)
 
-corp_container.add(corp_lbl, 1, 2, align='right')
-corp_container.add(corp_inp, 1, 3)
+    corp_container.add(corp_lbl, 1, 2, align='right')
+    corp_container.add(corp_inp, 1, 3)
 
-app.add(container, 6, 1, column_span=4, row_span=2, fill=True)
+    app.add(container, 6, 1, column_span=4, row_span=2, fill=True)
 
-container.set_grid(2, 4)
+    container.set_grid(2, 4)
 
-container.add(market_lbl, 1, 1, fill=True)
-container.add(market_dd, 1, 2, fill=True)
+    container.add(market_lbl, 1, 1, fill=True)
+    container.add(market_dd, 1, 2, fill=True)
 
-container.add(cluster_lbl, 1, 3, fill=True)
-container.add(cluster_dd, 1, 4, fill=True)
+    container.add(cluster_lbl, 1, 3, fill=True)
+    container.add(cluster_dd, 1, 4, fill=True)
 
-container.add(ftax_lbl, 2, 1, fill=True)
-container.add(ftax_inp, 2, 2, fill=True)
+    container.add(ftax_lbl, 2, 1, fill=True)
+    container.add(ftax_inp, 2, 2, fill=True)
 
-container.add(eid_lbl, 2, 3, fill=True)
-container.add(eid_inp, 2, 4, fill=True)
+    container.add(eid_lbl, 2, 3, fill=True)
+    container.add(eid_inp, 2, 4, fill=True)
 
-app.add(checkbox_container, 8, 1, column_span=4, fill=True)
+    app.add(checkbox_container, 8, 1, column_span=4, fill=True)
 
-checkbox_container.set_grid(3, 4)
+    checkbox_container.set_grid(3, 4)
 
-checkbox_container.add(offer_id_cb, 1, 1, fill=True)
-checkbox_container.add(name_cb, 1, 2, fill=True)
-checkbox_container.add(description_cb, 1, 3, fill=True)
-checkbox_container.add(price_cb, 1, 4, fill=True)
-checkbox_container.add(mobile_offers_container, 2, 1, fill=True, column_span=4)
-checkbox_container.add(submit_btn, 3, 2, column_span=2, align='center')
+    checkbox_container.add(offer_id_cb, 1, 1, fill=True)
+    checkbox_container.add(name_cb, 1, 2, fill=True)
+    checkbox_container.add(description_cb, 1, 3, fill=True)
+    checkbox_container.add(price_cb, 1, 4, fill=True)
+    checkbox_container.add(mobile_offers_container, 2, 1, fill=True, column_span=4)
+    checkbox_container.add(submit_btn, 3, 2, column_span=2, align='center')
 
-mobile_offers_container.set_grid(1, 1)
-mobile_offers_container.add(mobile_offers_cb, 1, 1, align='center')
+    mobile_offers_container.set_grid(1, 1)
+    mobile_offers_container.add(mobile_offers_cb, 1, 1, align='center')
 
-app.run()
+    app.run()
