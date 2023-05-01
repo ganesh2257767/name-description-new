@@ -10,3 +10,6 @@ temp.json
 test.txt
 Name Description Check.py
 input.xlsx
+build/
+dist/
+app.spec

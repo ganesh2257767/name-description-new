@@ -6,6 +6,10 @@ import threading
 
 headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
 
+file_path = None
+offers = None
+final_dict = {}
+
 urls = {
     'uow': {
         'uat': 'https://ws-uat.suddenlink.com/optimum-online-order-ws/rest/OfferService/getBundles',
@@ -49,11 +53,15 @@ markets_clusters = {
     }
 }
 
-file_path = None
-final_dict = {}
-offers = None
-
 def get_input_excel(event):
+    """
+    get_input_excel Reads the input excel file.
+
+    Reads the excel file uploaded and comverts the data into a dictionary that can be used for further processing.
+
+    :param event: Reference of the widget that called this function.
+    :type event: gp.Widget
+    """
     global file_path, final_dict
     file_path = input_file_window.open()
     try:
@@ -73,6 +81,14 @@ def get_input_excel(event):
 
 
 def set_market_cluster(event):
+    """
+    set_market_cluster Sets the market and cluster dropdopwns.
+
+    Sets the market and cluster dropdopwn based on if OPT or SDL is selected as both the proposals have a different set of markets and clusters.
+
+    :param event: Reference of the widget that called this function.
+    :type event: gp.Widget
+    """
     market_dd.items = markets_clusters[event.widget.selected.lower()]['markets']
     cluster_dd.items = markets_clusters[event.widget.selected.lower()]['clusters']
     
@@ -80,11 +96,27 @@ def set_market_cluster(event):
     
 
 def toggle_promo(event):
+    """
+    toggle_promo Disables/enables the promo radio buttons.
+
+    Disables or enables the promo radio buttons based on whether UOW is selected or not as UOW does not have the concept of full rate offers.
+
+    :param event: Reference of the widget that called this function.
+    :type event: gp.Widget
+    """
     promo_rg.disabled = True if event.widget.selected == 'UOW' else False
 
 
-# This is to only allow corp and ftax fields to accept numerical values
 def sanitize_corp(event):
+    """
+    sanitize_corp Only allows the corp field to take in numerical values and a max length of 4 digits.
+
+    Corp values are only 4 digits long if you exclude the leading 0 which is not required.
+    This function makes sure the corp values are digits and that the max length doesn't exceed 4 characters.
+
+    :param event: Reference of the widget that called this function
+    :type event: gp.Widget
+    """
     if event.widget.text and not event.widget.text[-1].isnumeric():
         event.widget.text = event.widget.text[:-1]
     if len(event.widget.text) > 4:
@@ -92,6 +124,14 @@ def sanitize_corp(event):
 
     
 def sanitize_ftax(event):
+    """
+    sanitize_ftax Only allows the ftax field to take in numerical values and a max length of 2 digits.
+
+    Ftax values are 2 digit identifiers and as such this function makes sure the user input is numerical and has a max length of 2 digits.
+
+    :param event: Reference of the widget that called this function
+    :type event: gp.Widget
+    """
     if event.widget.text and not event.widget.text[-1].isnumeric():
         event.widget.text = event.widget.text[:-1]
     if len(event.widget.text) > 2:
@@ -99,11 +139,30 @@ def sanitize_ftax(event):
     
 
 def sanitize_eid(event):
+    """
+    sanitize_eid Only allows 5 characters and makes the entry uppercase.
+
+    EIDs are alphanumerical identifiers of length 5, and so this function makes sure the length of the input is restricted to 5 and is converted to uppercase.
+
+    :param event: Reference of the widget that called this function
+    :type event: gp.Widget
+    """
     event.widget.text = event.widget.text.upper()
     if len(event.widget.text) > 5:
         event.widget.text = event.widget.text[:5]
 
+
 def validate_submit_values():
+    """
+    validate_submit_values Main driver function which does all the processing.
+
+    Validates whether all inputs are provided and processes the data.
+    1. Validates all input are present.
+    2. Checks to see which request to make based on channel and env.
+    3. Processes the response and appends the data to the dictionary created by using the input data.
+    4. Compares the data and creates a new field with the result (Pass, Fail and NA).
+    5. Saves the data to an excel.
+    """
     if not file_path:
         app.alert("Error", "Please select a file!", "error")
         return
@@ -218,13 +277,29 @@ def validate_submit_values():
 
 
 def handle_app_state_change_on_exceptions():
+    """
+    handle_app_state_change_on_exceptions Helper function to handle UI when exceptions occur.
+
+    Handles the UI by stopping the Progressbar and enabling the button if an exception occurs anywhere in the main code.
+    """
     progress_bar.stop()
     progress_bar.value = 0
     submit_btn.disabled = False
     app.update()
-    return
+
 
 def save_excel(name, data):
+    """
+    save_excel Helper function to save data to an excel file.
+    
+    Takes in a name and list of lists and saves it to an excel file.
+    
+    :param name: name of the excel file to be saved.
+    :type name: str
+    
+    :param data: The table data to be saved to excel file.
+    :type data: List of lists
+    """
     global headers
     df = pd.DataFrame(data, columns=headers)
     with pd.ExcelWriter(name, engine='xlsxwriter') as writer:
@@ -232,6 +307,16 @@ def save_excel(name, data):
     
 
 def get_address(corp):
+    """
+    get_address Splits the address.
+
+    Splits the address as required by the request payload.
+
+    :param corp: Corp used while running the tool.
+    :type corp: str
+    :return: Tupel of strings with the different address attributes.
+    :rtype: Tuple of strings
+    """
     for k, v in corps.items():
         if corp in k:
             address = v.split()
