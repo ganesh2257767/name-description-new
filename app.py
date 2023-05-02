@@ -1,4 +1,4 @@
-version = 'v1.1'
+version = 1.1
 
 import gooeypie as gp
 import pandas as pd
@@ -383,7 +383,7 @@ tk.Tk.report_callback_exception = handle_exceptions
 threading.excepthook = handle_thread_exception
 
 if __name__ == '__main__':
-    app = gp.GooeyPieApp(f'Name Description Checker {version}')
+    app = gp.GooeyPieApp(f'Name Description Checker v{version}')
     app.on_open(lambda: threading.Thread(target=check_version).start())
 
     input_file_window = gp.OpenFileWindow(app, 'Select input file')
