@@ -3,6 +3,26 @@ import pandas as pd
 import json
 import requests
 import threading
+import sys
+import logging
+import traceback
+
+logger = logging.getLogger(__name__)
+handler = logging.FileHandler('logs.txt')
+handler.setLevel(logging.DEBUG)
+format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(format)
+logger.addHandler(handler)
+
+
+def handle_thread_exception(args):
+    if issubclass(args.exc_type, KeyboardInterrupt):
+        sys.__excepthook__(args.exc_type, args.exc_value, args.exc_traceback)
+        return
+
+    logger.error("Uncaught exception", exc_info=(args.exc_type, args.exc_value, args.exc_traceback))
+    app.alert("Exception", f'Uncaught exception:\nType: {args.exc_type}\nValue: {args.exc_value}\nTraceback: {traceback.format_tb(args.exc_traceback)}', "error")
+
 
 headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
 
@@ -322,6 +342,7 @@ def get_address(corp: str) -> tuple:
             address = v.split()
             return address[0], ' '.join(address[1:3]), address[3], address[4], address[5]
 
+threading.excepthook = handle_thread_exception
 
 if __name__ == '__main__':
     app = gp.GooeyPieApp('Offer Name Description Price Checker')

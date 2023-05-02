@@ -1,5 +1,7 @@
 env/
 .vscode/
+build/
+dist/
 Home page.png
 Landing page.png
 backup.py
@@ -10,6 +12,5 @@ temp.json
 test.txt
 Name Description Check.py
 input.xlsx
-build/
-dist/
 app.spec
+logs.txt
