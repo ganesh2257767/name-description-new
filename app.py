@@ -8,14 +8,14 @@ import logging
 import traceback
 import os
 
+version = 'v1.0'
+
 logger = logging.getLogger(__name__)
 handler = logging.FileHandler('logs.txt')
 handler.setLevel(logging.DEBUG)
-format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+format = logging.Formatter('[%(asctime)s] - [%(name)s] - [%(funcName)s:%(lineno)d] - [%(levelname)s] - %(message)s')
 handler.setFormatter(format)
 logger.addHandler(handler)
-
-version = 'v1.0'
 
 def handle_thread_exception(args):
     if issubclass(args.exc_type, KeyboardInterrupt):
