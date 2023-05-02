@@ -9,7 +9,7 @@ import traceback
 import os
 import tkinter as tk
 
-version = 'v1.0'
+version = 'v1.1'
 
 logger = logging.getLogger(__name__)
 handler = logging.FileHandler('logs.txt')
