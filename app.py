@@ -1,3 +1,5 @@
+version = 'v1.1'
+
 import gooeypie as gp
 import pandas as pd
 import json
@@ -8,8 +10,6 @@ import logging
 import traceback
 import os
 import tkinter as tk
-
-version = 'v1.1'
 
 logger = logging.getLogger(__name__)
 handler = logging.FileHandler('logs.txt')
@@ -24,6 +24,15 @@ file_path: str = None
 offers: dict = None
 final_dict: dict = {}
 data: dict = None
+
+
+def check_version():
+    response = requests.get('https://raw.githubusercontent.com/ganesh2257767/name-description-new/main/app.py')
+    if response.status_code == 200:
+        version = response.content.decode().split('\n')[0]
+        print(version)
+    else:
+        print("Cannot check for updates now.")
 
 
 def handle_thread_exception(args):
@@ -375,6 +384,7 @@ threading.excepthook = handle_thread_exception
 
 if __name__ == '__main__':
     app = gp.GooeyPieApp(f'Name Description Checker {version}')
+    app.on_open(lambda: threading.Thread(target=check_version).start())
 
     input_file_window = gp.OpenFileWindow(app, 'Select input file')
     input_file_window.set_initial_folder('app')
