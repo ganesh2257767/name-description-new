@@ -305,7 +305,10 @@ def validate_submit_values() -> None:
     save_excel(f'NA [Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}].xlsx', na_list)
     
     handle_app_state_change_on_exceptions()
-    app.alert("Result", f"Statistics of the run:\n\nTotal: {len(final_dict)}\n\nPass: {len(pass_list)}\n\nFail: {len(fail_list)}\n\nNA: {len(na_list)}", "info")
+    # app.alert("Result", f"Statistics of the run:\n\nTotal: {len(final_dict)}\n\nPass: {len(pass_list)}\n\nFail: {len(fail_list)}\n\nNA: {len(na_list)}", "info")
+    result_tbl.clear()
+    result_tbl.add_row([len(final_dict), len(pass_list), len(fail_list), len(na_list)])
+    result_window.show_on_top()
     return
 
 
@@ -426,6 +429,27 @@ if __name__ == '__main__':
     submit_btn.width = output_folder_btn.width
     
     progress_bar = gp.Progressbar(app, 'indeterminate')
+    
+    result_window = gp.Window(app, 'Result')
+    
+    result_header = gp.StyleLabel(result_window, 'Run statistics')
+    result_header.font_size = 15
+    result_header.font_weight = 'bold'
+    
+    result_tbl = gp.Table(result_window, ['Total', 'Pass', 'Fail', 'NA'])
+    result_tbl.set_column_widths(100, 100, 100, 100)
+    result_tbl.height = 2
+    result_tbl.set_column_alignments('center', 'center', 'center', 'center')
+    
+    result_close_btn = gp.Button(result_window, 'Close', lambda x: result_window.hide())
+    
+    result_window.set_grid(3, 1)
+
+    result_window.add(result_header, 1, 1, align='center')
+    result_window.add(result_tbl, 2, 1)
+    result_window.add(result_close_btn, 3, 1, align='center')
+    
+    result_window.hide()
         
     app.set_grid(9, 4)
 
