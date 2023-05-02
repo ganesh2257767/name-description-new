@@ -7,6 +7,7 @@ import sys
 import logging
 import traceback
 import os
+import tkinter as tk
 
 version = 'v1.0'
 
@@ -17,6 +18,7 @@ format = logging.Formatter('[%(asctime)s] - [%(name)s] - [%(funcName)s:%(lineno)
 handler.setFormatter(format)
 logger.addHandler(handler)
 
+
 def handle_thread_exception(args):
     if issubclass(args.exc_type, KeyboardInterrupt):
         sys.__excepthook__(args.exc_type, args.exc_value, args.exc_traceback)
@@ -24,6 +26,15 @@ def handle_thread_exception(args):
 
     logger.error("Uncaught exception", exc_info=(args.exc_type, args.exc_value, args.exc_traceback))
     app.alert("Exception", f'Uncaught exception:\nType: {args.exc_type}\nValue: {args.exc_value}\nTraceback: {traceback.format_tb(args.exc_traceback)}', "error")
+
+
+def handle_exceptions(*args):
+    if issubclass(args[1], KeyboardInterrupt):
+        sys.__excepthook__(args[1], args[2], args[3])
+        return
+
+    logger.error("Uncaught exception", exc_info=(args[1], args[2], args[3]))
+    app.alert("Exception", f'Uncaught exception:\nType: {args[1]}\nValue: {args[2]}\nTraceback: {traceback.format_tb(args[3])}', "error")
 
 
 headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
@@ -344,6 +355,8 @@ def get_address(corp: str) -> tuple:
             address = v.split()
             return address[0], ' '.join(address[1:3]), address[3], address[4], address[5]
 
+# sys.excepthook = handle_exceptions
+tk.Tk.report_callback_exception = handle_exceptions
 threading.excepthook = handle_thread_exception
 
 if __name__ == '__main__':
