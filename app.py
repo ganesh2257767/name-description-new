@@ -1,4 +1,4 @@
-version = 1.2
+version = 1.3
 
 import gooeypie as gp
 import pandas as pd
@@ -55,7 +55,6 @@ corps: dict = {
     ('7858', '7837'): '305 WALTER AVE MINEOLA NY 11501',
     ('7702', '7704', '7710', '7715'): '3107 BAYLOR ST LUBBOCK TX 79415',
     ('7709', '7712'): '531 ROANE ST CHARLESTON WV 25302',
-    ('7701', '7703', '7705', '7706', '7707', '7708', '7711', '7713', '7714'): '123 TEST TEST TEST TEST 12345'
 }
 
 markets_clusters: dict = {
@@ -256,6 +255,7 @@ def validate_submit_values() -> None:
     eid = eid_inp.text
     
     addr_loc, addr_street, addr_city, addr_state, addr_zip = get_address(corp)
+    
     url = urls[channel][env]
     
     match (channel, proposal):
@@ -404,6 +404,8 @@ def get_address(corp: str) -> tuple:
         if corp in k:
             address = v.split()
             return address[0], ' '.join(address[1:3]), address[3], address[4], address[5]
+    else:
+        return '123', 'TEST TEST', 'TEST', 'TEST', '12345'
 
 # sys.excepthook = handle_exceptions
 tk.Tk.report_callback_exception = handle_exceptions
