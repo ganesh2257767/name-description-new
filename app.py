@@ -6,6 +6,7 @@ import threading
 import sys
 import logging
 import traceback
+import os
 
 logger = logging.getLogger(__name__)
 handler = logging.FileHandler('logs.txt')
@@ -14,6 +15,7 @@ format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s
 handler.setFormatter(format)
 logger.addHandler(handler)
 
+version = 'v1.0'
 
 def handle_thread_exception(args):
     if issubclass(args.exc_type, KeyboardInterrupt):
@@ -112,7 +114,7 @@ def set_market_cluster(event: gp.widgets.GooeyPieEvent) -> None:
     market_dd.items = markets_clusters[event.widget.selected.lower()]['markets']
     cluster_dd.items = markets_clusters[event.widget.selected.lower()]['clusters']
     
-    eid_inp.disabled, ftax_inp.disabled = (True, True) if event.widget.selected == 'Optimum' else (False, False)
+    eid_inp.disabled, ftax_inp.disabled, eid_lbl.disabled, ftax_lbl.disabled = (True, True, True, True) if event.widget.selected == 'Optimum' else (False, False, False, False)
     
 
 def toggle_promo(event: gp.widgets.GooeyPieEvent) -> None:
@@ -345,7 +347,7 @@ def get_address(corp: str) -> tuple:
 threading.excepthook = handle_thread_exception
 
 if __name__ == '__main__':
-    app = gp.GooeyPieApp('Offer Name Description Price Checker')
+    app = gp.GooeyPieApp(f'Name Description Checker {version}')
 
     input_file_window = gp.OpenFileWindow(app, 'Select input file')
     input_file_window.set_initial_folder('app')
@@ -403,9 +405,11 @@ if __name__ == '__main__':
     mobile_offers_cb = gp.Checkbox(mobile_offers_container, 'Checking Mobile Offers?')
 
     submit_btn = gp.Button(checkbox_container, 'Submit', lambda x: threading.Thread(target=validate_submit_values).start())
-
+    output_folder_btn = gp.Button(checkbox_container, 'Output Folder', lambda x: os.startfile(os.getcwd()))
+    submit_btn.width = output_folder_btn.width
+    
     progress_bar = gp.Progressbar(app, 'indeterminate')
-
+        
     app.set_grid(9, 4)
 
     app.add(input_file_btn, 1, 1, column_span=4, align='center')
@@ -422,7 +426,7 @@ if __name__ == '__main__':
     app.add(corp_container, 5, 1, column_span=4, fill=True)
 
     app.add(progress_bar, 9, 2, column_span=2, align='center')
-
+        
     corp_container.set_grid(1, 5)
 
     corp_container.add(corp_lbl, 1, 2, align='right')
@@ -446,14 +450,15 @@ if __name__ == '__main__':
 
     app.add(checkbox_container, 8, 1, column_span=4, fill=True)
 
-    checkbox_container.set_grid(3, 4)
+    checkbox_container.set_grid(4, 4)
 
     checkbox_container.add(offer_id_cb, 1, 1, fill=True)
     checkbox_container.add(name_cb, 1, 2, fill=True)
     checkbox_container.add(description_cb, 1, 3, fill=True)
     checkbox_container.add(price_cb, 1, 4, fill=True)
     checkbox_container.add(mobile_offers_container, 2, 1, fill=True, column_span=4)
-    checkbox_container.add(submit_btn, 3, 2, column_span=2, align='center')
+    checkbox_container.add(submit_btn, 3, 2, align='center')
+    checkbox_container.add(output_folder_btn, 3, 3, align='center')
 
     mobile_offers_container.set_grid(1, 1)
     mobile_offers_container.add(mobile_offers_cb, 1, 1, align='center')
