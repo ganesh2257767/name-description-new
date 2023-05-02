@@ -1,4 +1,4 @@
-version = 1.1
+version = 1.2
 
 import gooeypie as gp
 import pandas as pd
@@ -24,33 +24,6 @@ file_path: str = None
 offers: dict = None
 final_dict: dict = {}
 data: dict = None
-
-
-def check_version():
-    response = requests.get('https://raw.githubusercontent.com/ganesh2257767/name-description-new/main/app.py')
-    if response.status_code == 200:
-        version = response.content.decode().split('\n')[0]
-        print(version)
-    else:
-        print("Cannot check for updates now.")
-
-
-def handle_thread_exception(args):
-    if issubclass(args.exc_type, KeyboardInterrupt):
-        sys.__excepthook__(args.exc_type, args.exc_value, args.exc_traceback)
-        return
-
-    logger.error("Uncaught exception", exc_info=(args.exc_type, args.exc_value, args.exc_traceback))
-    app.alert("Exception", f'Uncaught exception:\nType: {args.exc_type}\nValue: {args.exc_value}\nTraceback: {traceback.format_tb(args.exc_traceback)}', "error")
-
-
-def handle_exceptions(*args):
-    if issubclass(args[1], KeyboardInterrupt):
-        sys.__excepthook__(args[1], args[2], args[3])
-        return
-
-    logger.error("Uncaught exception", exc_info=(args[1], args[2], args[3]))
-    app.alert("Exception", f'Uncaught exception:\nType: {args[1]}\nValue: {args[2]}\nTraceback: {traceback.format_tb(args[3])}', "error")
 
 
 urls: dict = {
@@ -95,6 +68,60 @@ markets_clusters: dict = {
         'clusters': [10, 21, 58, 59, 66, 67, 90, 91, 92, 93, 95]
     }
 }
+
+
+def check_version() -> None:
+    """
+    check_version Checks the version from github
+
+    Checks the app version from github from when I commit the code with an incremented version. Only works if I commit the code with an incremented version.
+    """
+    response = requests.get('https://raw.githubusercontent.com/ganesh2257767/name-description-new/main/app.py')
+    if response.status_code == 200:
+        git_version = response.content.decode().split('\n')[0]
+        git_version = float(git_version.split(' = ')[1])
+        if version < git_version:
+            version_lbl.text = f'On an outdated version (v{version}), latest version is: v{git_version}'
+            version_lbl.color = 'red'
+        else:
+            version_lbl.text = f'On latest version: v{version}'
+            version_lbl.color = 'green'
+    else:
+        version_lbl.text = "Cannot check for updates now."
+        version_lbl.color = 'black'
+
+
+def handle_thread_exception(args) -> None:
+    """
+    handle_thread_exception Handles any uncaught exception in the threaded function.
+
+    Cathches any uncaught exception and logs it to the file in hopes of catching any exceptions that were left unchecked while testing. This might be a temporary function as fixing most of the exceptions won't warrant to keep this in forever.
+
+    :param args: A tuple of exception values ie. exception type, exception value and exception message
+    :type args: tuple
+    """
+    if issubclass(args.exc_type, KeyboardInterrupt):
+        sys.__excepthook__(args.exc_type, args.exc_value, args.exc_traceback)
+        return
+
+    logger.error("Uncaught exception", exc_info=(args.exc_type, args.exc_value, args.exc_traceback))
+    app.alert("Exception", f'Uncaught exception:\nType: {args.exc_type}\nValue: {args.exc_value}\nTraceback: {traceback.format_tb(args.exc_traceback)}', "error")
+
+
+def handle_exceptions(*args: tuple) -> None:
+    """
+    handle_exceptions Handles any uncaught exception in the UI outside any threads.
+
+    Cathches any uncaught exception and logs it to the file in hopes of catching any exceptions that were left unchecked while testing. This might be a temporary function as fixing most of the exceptions won't warrant to keep this in forever.
+
+    """
+    if issubclass(args[1], KeyboardInterrupt):
+        sys.__excepthook__(args[1], args[2], args[3])
+        return
+
+    logger.error("Uncaught exception", exc_info=(args[1], args[2], args[3]))
+    app.alert("Exception", f'Uncaught exception:\nType: {args[1]}\nValue: {args[2]}\nTraceback: {traceback.format_tb(args[3])}', "error")
+
 
 def get_input_excel(event: gp.widgets.GooeyPieEvent) -> None:
     """
@@ -445,6 +472,7 @@ if __name__ == '__main__':
     output_folder_btn = gp.Button(checkbox_container, 'Output Folder', lambda x: os.startfile(os.getcwd()))
     submit_btn.width = output_folder_btn.width
     
+    version_lbl = gp.StyleLabel(app, 'Checking for updates...')
     progress_bar = gp.Progressbar(app, 'indeterminate')
     
     result_window = gp.Window(app, 'Result')
@@ -483,7 +511,9 @@ if __name__ == '__main__':
 
     app.add(corp_container, 5, 1, column_span=4, fill=True)
 
-    app.add(progress_bar, 9, 2, column_span=2, align='center')
+    app.add(version_lbl, 9, 1, column_span=3)
+    app.add(progress_bar, 9, 4, align='right')
+    
         
     corp_container.set_grid(1, 5)
 
