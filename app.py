@@ -18,6 +18,13 @@ format = logging.Formatter('[%(asctime)s] - [%(name)s] - [%(funcName)s:%(lineno)
 handler.setFormatter(format)
 logger.addHandler(handler)
 
+headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
+
+file_path: str = None
+offers: dict = None
+final_dict: dict = {}
+data: dict = None
+
 
 def handle_thread_exception(args):
     if issubclass(args.exc_type, KeyboardInterrupt):
@@ -36,12 +43,6 @@ def handle_exceptions(*args):
     logger.error("Uncaught exception", exc_info=(args[1], args[2], args[3]))
     app.alert("Exception", f'Uncaught exception:\nType: {args[1]}\nValue: {args[2]}\nTraceback: {traceback.format_tb(args[3])}', "error")
 
-
-headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
-
-file_path: str = None
-offers: dict = None
-final_dict: dict = {}
 
 urls: dict = {
     'uow': {
@@ -95,7 +96,7 @@ def get_input_excel(event: gp.widgets.GooeyPieEvent) -> None:
     :param event: Reference of the widget/event that called this function.
     :type event: gp.widgets.GooeyPieEvent
     """
-    global file_path, final_dict
+    global file_path, final_dict, data
     file_path = input_file_window.open()
     try:
         input_file_lbl.text = file_path.split('/')[-1]
@@ -104,13 +105,6 @@ def get_input_excel(event: gp.widgets.GooeyPieEvent) -> None:
     else:
         input_file_lbl.color = 'green'
         data = pd.read_excel(file_path, skiprows=1, header=None, index_col=None, usecols='A:D', names=['ID', 'Gathering Name', 'Gathering Description', 'Gathering Price'])
-        final_dict.clear()
-        for _, row in data.iterrows():
-            final_dict[str(row['ID'])] = {
-                'Gathering Name':row['Gathering Name'],
-                'Gathering Description': row['Gathering Description'],
-                'Gathering Price': f"{row['Gathering Price']:.2f}" if row['Gathering Price'] else ''
-                }
 
 
 def set_market_cluster(event: gp.widgets.GooeyPieEvent) -> None:
@@ -207,6 +201,14 @@ def validate_submit_values() -> None:
     submit_btn.disabled = True
     app.update()
     
+    final_dict.clear()
+    for _, row in data.iterrows():
+        final_dict[str(row['ID'])] = {
+            'Gathering Name':row['Gathering Name'],
+            'Gathering Description': row['Gathering Description'],
+            'Gathering Price': f"{row['Gathering Price']:.2f}" if row['Gathering Price'] else ''
+            }
+    
     proposal = 'opt' if proposal_rg.selected == 'Optimum' else 'sdl'
     channel = channel_rg.selected.split('/')[-1].lower()
     env = env_rg.selected.lower()
@@ -300,13 +302,18 @@ def validate_submit_values() -> None:
                 temp = [offer, *attributes.values(), 'Fail']
                 fail_list.append(temp)
     
-    save_excel(f'Pass [Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}].xlsx', pass_list)
-    save_excel(f'Fail [Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}].xlsx', fail_list)
-    save_excel(f'NA [Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}].xlsx', na_list)
+    if proposal == 'opt':
+        name_str = f'[Corp - {corp}][Market - {market}][Cluster - {cluster}]'
+    else:
+        name_str = f'[Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}]'
+        
+    save_excel(f'Pass {name_str}.xlsx', pass_list)
+    save_excel(f'Fail {name_str}.xlsx', fail_list)
+    save_excel(f'NA {name_str}.xlsx', na_list)
     
     handle_app_state_change_on_exceptions()
-    # app.alert("Result", f"Statistics of the run:\n\nTotal: {len(final_dict)}\n\nPass: {len(pass_list)}\n\nFail: {len(fail_list)}\n\nNA: {len(na_list)}", "info")
     result_tbl.clear()
+
     result_tbl.add_row([len(final_dict), len(pass_list), len(fail_list), len(na_list)])
     result_window.show_on_top()
     return
