@@ -199,7 +199,7 @@ def validate_submit_values() -> None:
     if not file_path:
         app.alert("Error", "Please select a file!", "error")
         return
-    if not all((proposal_rg.selected,channel_rg.selected,env_rg.selected,promo_rg.selected,corp_inp.text,market_dd.selected,cluster_dd.selected,ftax_inp.text or ftax_inp.disabled,eid_inp.text or eid_inp.disabled)):
+    if not all((proposal_rg.selected, channel_rg.selected, env_rg.selected, promo_rg.selected, corp_inp.text, market_dd.selected, cluster_dd.selected, ftax_inp.text or ftax_inp.disabled, eid_inp.text or eid_inp.disabled)):
         app.alert('Error', 'Please enter all values', 'error')
         return
     
@@ -214,8 +214,8 @@ def validate_submit_values() -> None:
     corp = corp_inp.text
     market = market_dd.selected
     cluster = cluster_dd.selected
-    ftax = ftax_inp.text or ftax_inp.disabled
-    eid = eid_inp.text or eid_inp.disabled
+    ftax = ftax_inp.text
+    eid = eid_inp.text
     
     addr_loc, addr_street, addr_city, addr_state, addr_zip = get_address(corp)
     url = urls[channel][env]
@@ -300,9 +300,9 @@ def validate_submit_values() -> None:
                 temp = [offer, *attributes.values(), 'Fail']
                 fail_list.append(temp)
     
-    save_excel('Pass.xlsx', pass_list)
-    save_excel('Fail.xlsx', fail_list)
-    save_excel('NA.xlsx', na_list)
+    save_excel(f'Pass [Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}].xlsx', pass_list)
+    save_excel(f'Fail [Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}].xlsx', fail_list)
+    save_excel(f'NA [Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}].xlsx', na_list)
     
     handle_app_state_change_on_exceptions()
     app.alert("Result", f"Statistics of the run:\n\nTotal: {len(final_dict)}\n\nPass: {len(pass_list)}\n\nFail: {len(fail_list)}\n\nNA: {len(na_list)}", "info")
@@ -335,8 +335,12 @@ def save_excel(name: str, data: list):
     """
     global headers
     df: pd.DataFrame = pd.DataFrame(data, columns=headers)
-    with pd.ExcelWriter(name, engine='xlsxwriter') as writer:
-        df.to_excel(writer, index=False)
+    try:
+        with pd.ExcelWriter(name, engine='xlsxwriter') as writer:
+            df.to_excel(writer, index=False)
+    except PermissionError:
+        handle_app_state_change_on_exceptions()
+        app.alert('File open', 'The file where the output is being written is open.\nPlease close the file and try again!', 'warning')
     
 
 def get_address(corp: str) -> tuple:

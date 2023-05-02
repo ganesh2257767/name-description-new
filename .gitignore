@@ -2,15 +2,10 @@ env/
 .vscode/
 build/
 dist/
-Home page.png
-Landing page.png
 backup.py
-Fail.xlsx
-Pass.xlsx
-NA.xlsx
-temp.json
-test.txt
 Name Description Check.py
-input.xlsx
-app.spec
-logs.txt
+*.xlsx
+*.txt
+*.json
+*.spec
+*.png
