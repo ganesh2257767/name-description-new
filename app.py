@@ -217,8 +217,8 @@ def sanitize_eid(event: gp.widgets.GooeyPieEvent) -> None:
 
 
 def write_response_for_debug(response: dict) -> None:
-        with open('temp.json', 'w') as f:
-            f.write(json.dumps(response, indent=4))
+    with open('temp.json', 'w') as f:
+        f.write(json.dumps(response, indent=4))
 
 
 def validate_submit_values() -> None:
@@ -418,7 +418,7 @@ def get_address(corp: str) -> tuple:
     else:
         return '123', 'TEST TEST', 'TEST', 'TEST', '12345'
 
-# sys.excepthook = handle_exceptions
+
 tk.Tk.report_callback_exception = handle_exceptions
 threading.excepthook = handle_thread_exception
 
@@ -528,7 +528,6 @@ if __name__ == '__main__':
     app.add(version_lbl, 9, 1, column_span=3)
     app.add(progress_bar, 9, 4, align='right')
     
-        
     corp_container.set_grid(1, 5)
 
     corp_container.add(corp_lbl, 1, 2, align='right')
