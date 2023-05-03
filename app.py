@@ -1,4 +1,4 @@
-version = 1.3
+version = 1.4
 
 import gooeypie as gp
 import pandas as pd
@@ -60,7 +60,7 @@ corps: dict = {
 markets_clusters: dict = {
     'optimum': {
         'markets': ['K', 'M', 'N', 'G'],
-        'clusters': [6, 10, 86]
+        'clusters': [6, 10, 32,50, 51, 52, 53, 55, 56, 57, 82, 85, 86, 88]
     },
     'suddenlink': {
         'markets': ['A', 'B', 'C', 'E', 'F', 'G', 'I', 'J', 'K', 'M', 'N', 'O', 'P', 'Q', 'V'],
@@ -104,6 +104,7 @@ def handle_thread_exception(args) -> None:
         return
 
     logger.error("Uncaught exception", exc_info=(args.exc_type, args.exc_value, args.exc_traceback))
+    handle_app_state_change_on_exceptions()
     app.alert("Exception", f'Uncaught exception:\nType: {args.exc_type}\nValue: {args.exc_value}\nTraceback: {traceback.format_tb(args.exc_traceback)}', "error")
 
 
@@ -119,6 +120,7 @@ def handle_exceptions(*args: tuple) -> None:
         return
 
     logger.error("Uncaught exception", exc_info=(args[1], args[2], args[3]))
+    handle_app_state_change_on_exceptions()
     app.alert("Exception", f'Uncaught exception:\nType: {args[1]}\nValue: {args[2]}\nTraceback: {traceback.format_tb(args[3])}', "error")
 
 
@@ -214,6 +216,11 @@ def sanitize_eid(event: gp.widgets.GooeyPieEvent) -> None:
         event.widget.text = event.widget.text[:5]
 
 
+def write_response_for_debug(response: dict) -> None:
+        with open('temp.json', 'w') as f:
+            f.write(json.dumps(response, indent=4))
+
+
 def validate_submit_values() -> None:
     """
     validate_submit_values Main driver function which does all the processing.
@@ -241,7 +248,7 @@ def validate_submit_values() -> None:
         final_dict[str(row['ID'])] = {
             'Gathering Name':row['Gathering Name'],
             'Gathering Description': row['Gathering Description'],
-            'Gathering Price': f"{row['Gathering Price']:.2f}" if row['Gathering Price'] else ''
+            'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else ''
             }
     
     proposal = 'opt' if proposal_rg.selected == 'Optimum' else 'sdl'
@@ -274,31 +281,35 @@ def validate_submit_values() -> None:
     if channel == 'uow':
         try:
             res = requests.post(url, json=request, auth=('unittest', 'test01'))
+            res = res.json()
+            write_response_for_debug(res)
+            offers = res['productOfferings']['productOfferingResults']
         except requests.exceptions.ConnectionError:
             handle_app_state_change_on_exceptions()
-            app.alert("VPN Error", "Please connect to VPN or check your network connection!")
+            app.alert('VPN Error', 'Please connect to VPN or check your network connection!', 'error')
             return
-        else:
-            res = res.json()
-            offers = res["productOfferings"]["productOfferingResults"]
+        except KeyError:
+            handle_app_state_change_on_exceptions()
+            app.alert("Response Error", 'Looks like no offers were returned, please check the corp/ftax/cluster/eid combinations and try again!', 'error')
+            return
     else:
         try:
             res = requests.post(url, json=request, verify=False)
+            res = res.json()
+            write_response_for_debug(res)
+            offers = res['searchProductOfferingReturn']['productOfferingResults']
         except requests.exceptions.ConnectionError:
             handle_app_state_change_on_exceptions()
-            app.alert("VPN Error", "Please connect to VPN or check your network connection!")
+            app.alert('VPN Error', 'Please connect to VPN or check your network connection!', 'error')
             return
-        else:
-            res = res.json()
-            offers = res["searchProductOfferingReturn"]["productOfferingResults"]
-    
+        except KeyError:
+            handle_app_state_change_on_exceptions()
+            app.alert("Response Error", 'Looks like no offers were returned, please check the corp/ftax/cluster/eid combinations and try again!', 'error')
+            return
     if not offers:
         handle_app_state_change_on_exceptions()
         app.alert('Error', 'No offers returned, please use a different combination and try again', 'error')
         return
-    
-    with open('temp.json', 'w') as f:
-        f.write(json.dumps(offers, indent=4))
 
     if mobile_offers_cb.checked:
         title = 'mobileTitle'
@@ -310,11 +321,11 @@ def validate_submit_values() -> None:
         price = 'defaultPrice'
     
     for offer in offers:
-        if offer['matchingProductOffering']['ID'] in final_dict.keys():
-            final_dict[offer['matchingProductOffering']['ID']].update({
+        if (id_ := str(offer['matchingProductOffering']['ID'])) in final_dict.keys():
+            final_dict[id_].update({
                 "EPC Name": offer['matchingProductOffering'][title],
                 "EPC Description": offer['matchingProductOffering'][description],
-                "EPC Price": f"{float(offer['matchingProductOffering'][price].split(':')[1]):.2f}" if offer['matchingProductOffering'][price] else ''
+                "EPC Price": f"{float(offer['matchingProductOffering'][price].split(':')[1]):.2f}" if str(offer['matchingProductOffering'][price]) else ''
             })
     
     
@@ -413,6 +424,7 @@ threading.excepthook = handle_thread_exception
 
 if __name__ == '__main__':
     app = gp.GooeyPieApp(f'Name Description Checker v{version}')
+    app.set_resizable(False)
     app.on_open(lambda: threading.Thread(target=check_version).start())
 
     input_file_window = gp.OpenFileWindow(app, 'Select input file')
