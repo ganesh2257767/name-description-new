@@ -349,10 +349,10 @@ def validate_submit_values() -> None:
                 temp = [offer, *attributes.values(), 'Fail']
                 fail_list.append(temp)
     
-    if proposal == 'opt':
-        name_str = f'[Corp - {corp}][Market - {market}][Cluster - {cluster}]'
-    else:
-        name_str = f'[Corp - {corp}][Market - {market}][Cluster - {cluster}][Ftax - {ftax}][EID - {eid}]'
+    name_str = f'[{channel_rg.selected.replace("/", "-")}][Corp - {corp}][Market - {market}][Cluster - {cluster}]'
+    
+    if proposal == 'sdl':
+        name_str += f'[Ftax - {ftax}][EID - {eid}]'
         
     save_excel(f'Pass {name_str}.xlsx', pass_list)
     save_excel(f'Fail {name_str}.xlsx', fail_list)
