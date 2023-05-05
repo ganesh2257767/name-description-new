@@ -5,8 +5,8 @@ dist/
 Output/
 backup.py
 Name Description Check.py
+logs.txt
 *.xlsx
-*.txt
 *.json
 *.spec
 *.png
