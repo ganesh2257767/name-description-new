@@ -1,10 +1,11 @@
-version = 1.4
+version = 1.5
 
 import gooeypie as gp
 import pandas as pd
 import json
 import requests
 import threading
+import _thread
 import sys
 import logging
 import traceback
@@ -90,38 +91,25 @@ def check_version() -> None:
         version_lbl.color = 'black'
 
 
-def handle_thread_exception(args) -> None:
-    """
-    handle_thread_exception Handles any uncaught exception in the threaded function.
-
-    Cathches any uncaught exception and logs it to the file in hopes of catching any exceptions that were left unchecked while testing. This might be a temporary function as fixing most of the exceptions won't warrant to keep this in forever.
-
-    :param args: A tuple of exception values ie. exception type, exception value and exception message
-    :type args: tuple
-    """
-    if issubclass(args.exc_type, KeyboardInterrupt):
-        sys.__excepthook__(args.exc_type, args.exc_value, args.exc_traceback)
-        return
-
-    logger.error("Uncaught exception", exc_info=(args.exc_type, args.exc_value, args.exc_traceback))
-    handle_app_state_change_on_exceptions()
-    app.alert("Exception", f'Uncaught exception:\nType: {args.exc_type}\nValue: {args.exc_value}\nTraceback: {traceback.format_tb(args.exc_traceback)}', "error")
-
-
 def handle_exceptions(*args: tuple) -> None:
     """
-    handle_exceptions Handles any uncaught exception in the UI outside any threads.
+    handle_exceptions Handles all uncaught exceptions (UI + threads).
 
-    Cathches any uncaught exception and logs it to the file in hopes of catching any exceptions that were left unchecked while testing. This might be a temporary function as fixing most of the exceptions won't warrant to keep this in forever.
+    Cathches any uncaught exception and logs it to the file in hopes of catching any exceptions that were left unchecked while testing. This might be a temporary function as fixing most of the exceptions won't warrant to keep this in the future.
 
     """
-    if issubclass(args[1], KeyboardInterrupt):
-        sys.__excepthook__(args[1], args[2], args[3])
+    if type(args[0]) == _thread._ExceptHookArgs:
+        args = (args[0].exc_type, args[0].exc_value, args[0].exc_traceback)
+    else:
+        args = args[1:]
+
+    if issubclass(args[0], KeyboardInterrupt):
+        sys.__excepthook__(args[0], args[1], args[2])
         return
 
-    logger.error("Uncaught exception", exc_info=(args[1], args[2], args[3]))
+    logger.error("Uncaught exception", exc_info=(args[0], args[1], args[2]))
     handle_app_state_change_on_exceptions()
-    app.alert("Exception", f'Uncaught exception:\nType: {args[1]}\nValue: {args[2]}\nTraceback: {traceback.format_tb(args[3])}', "error")
+    app.alert("Exception", f'Uncaught exception:\nType: {args[0]}\nValue: {args[1]}\nTraceback: {traceback.format_tb(args[2])}', "error")
 
 
 def get_input_excel(event: gp.widgets.GooeyPieEvent) -> None:
@@ -419,8 +407,7 @@ def get_address(corp: str) -> tuple:
         return '123', 'TEST TEST', 'TEST', 'TEST', '12345'
 
 
-tk.Tk.report_callback_exception = handle_exceptions
-threading.excepthook = handle_thread_exception
+tk.Tk.report_callback_exception = threading.excepthook = handle_exceptions
 
 if __name__ == '__main__':
     app = gp.GooeyPieApp(f'Name Description Checker v{version}')
