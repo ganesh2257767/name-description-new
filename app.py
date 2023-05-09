@@ -145,7 +145,7 @@ def set_market_cluster(event: gp.widgets.GooeyPieEvent) -> None:
     cluster_dd.items = markets_clusters[event.widget.selected.lower()]['clusters']
     
     eid_inp.disabled, ftax_inp.disabled, eid_lbl.disabled, ftax_lbl.disabled = (True, True, True, True) if event.widget.selected == 'Optimum' else (False, False, False, False)
-    
+
 
 def toggle_promo(event: gp.widgets.GooeyPieEvent) -> None:
     """
@@ -174,7 +174,7 @@ def sanitize_corp(event: gp.widgets.GooeyPieEvent) -> None:
     if len(event.widget.text) > 4:
         event.widget.text = event.widget.text[:4]
 
-    
+
 def sanitize_ftax(event: gp.widgets.GooeyPieEvent) -> None:
     """
     sanitize_ftax Only allows the ftax field to take in numerical values and a max length of 2 digits.
@@ -188,7 +188,7 @@ def sanitize_ftax(event: gp.widgets.GooeyPieEvent) -> None:
         event.widget.text = event.widget.text[:-1]
     if len(event.widget.text) > 2:
         event.widget.text = event.widget.text[:2]
-    
+
 
 def sanitize_eid(event: gp.widgets.GooeyPieEvent) -> None:
     """
@@ -386,7 +386,7 @@ def save_excel(name: str, data: list):
     except PermissionError:
         handle_app_state_change_on_exceptions()
         app.alert('File open', 'The file where the output is being written is open.\nPlease close the file and try again!', 'warning')
-    
+
 
 def get_address(corp: str) -> tuple:
     """
@@ -406,7 +406,7 @@ def get_address(corp: str) -> tuple:
     else:
         return '123', 'TEST TEST', 'TEST', 'TEST', '12345'
 
-
+# Overriding the default excepthooks for tkinter as well as threading to a custom one, this will help catch uncaught exceptions better and handle them effectively.
 tk.Tk.report_callback_exception = threading.excepthook = handle_exceptions
 
 if __name__ == '__main__':
