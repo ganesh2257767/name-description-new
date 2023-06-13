@@ -1,4 +1,4 @@
-version = 1.6
+version = 1.7
 
 import gooeypie as gp
 import pandas as pd
@@ -142,7 +142,6 @@ def set_market_cluster(event: gp.widgets.GooeyPieEvent) -> None:
     :type event: gp.widgets.GooeyPieEvent
     """
     market_dd.items = markets_clusters[event.widget.selected.lower()]['markets']
-    cluster_dd.items = markets_clusters[event.widget.selected.lower()]['clusters']
     
     eid_inp.disabled, ftax_inp.disabled, eid_lbl.disabled, ftax_lbl.disabled = (True, True, True, True) if event.widget.selected == 'Optimum' else (False, False, False, False)
 
@@ -223,7 +222,7 @@ def validate_submit_values() -> None:
     if not file_path:
         app.alert("Error", "Please select a file!", "error")
         return
-    if not all((proposal_rg.selected, channel_rg.selected, env_rg.selected, promo_rg.selected, corp_inp.text, market_dd.selected, cluster_dd.selected, ftax_inp.text or ftax_inp.disabled, eid_inp.text or eid_inp.disabled)):
+    if not all((proposal_rg.selected, channel_rg.selected, env_rg.selected, promo_rg.selected, corp_inp.text, market_dd.selected, cluster_inp.text, ftax_inp.text or ftax_inp.disabled, eid_inp.text or eid_inp.disabled)):
         app.alert('Error', 'Please enter all values', 'error')
         return
     
@@ -245,7 +244,7 @@ def validate_submit_values() -> None:
     promo = 'true' if promo_rg.selected == 'Promotional' else 'false'
     corp = corp_inp.text
     market = market_dd.selected
-    cluster = cluster_dd.selected
+    cluster = cluster_inp.text
     ftax = ftax_inp.text
     eid = eid_inp.text
     
@@ -445,7 +444,8 @@ if __name__ == '__main__':
     market_dd = gp.Dropdown(container, [])
 
     cluster_lbl = gp.Label(container, 'Cluster')
-    cluster_dd = gp.Dropdown(container, [])
+    cluster_inp = gp.Input(container)
+    cluster_inp.add_event_listener('change', sanitize_ftax)
 
     ftax_lbl = gp.Label(container, 'Ftax')
     ftax_inp = gp.Input(container)
@@ -528,7 +528,7 @@ if __name__ == '__main__':
     container.add(market_dd, 1, 2, fill=True)
 
     container.add(cluster_lbl, 1, 3, fill=True)
-    container.add(cluster_dd, 1, 4, fill=True)
+    container.add(cluster_inp, 1, 4, fill=True)
 
     container.add(ftax_lbl, 2, 1, fill=True)
     container.add(ftax_inp, 2, 2, fill=True)
