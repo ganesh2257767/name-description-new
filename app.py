@@ -1,4 +1,4 @@
-version = 1.5
+version = 1.6
 
 import gooeypie as gp
 import pandas as pd
@@ -61,11 +61,11 @@ corps: dict = {
 markets_clusters: dict = {
     'optimum': {
         'markets': ['K', 'M', 'N', 'G'],
-        'clusters': [6, 10, 32,50, 51, 52, 53, 55, 56, 57, 82, 85, 86, 88]
+        'clusters': [6, 10, 32, 50, 51, 52, 53, 55, 56, 57, 82, 85, 86, 88]
     },
     'suddenlink': {
         'markets': ['A', 'B', 'C', 'E', 'F', 'G', 'I', 'J', 'K', 'M', 'N', 'O', 'P', 'Q', 'V'],
-        'clusters': [10, 21, 58, 59, 66, 67, 90, 91, 92, 93, 95]
+        'clusters': [10, 21, 38, 39, 40, 41, 58, 59, 66, 67, 90, 91, 92, 93, 95]
     }
 }
 
