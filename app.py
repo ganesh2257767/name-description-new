@@ -1,4 +1,4 @@
-version = 1.7
+version = 1.8
 
 import gooeypie as gp
 import pandas as pd
@@ -203,9 +203,9 @@ def sanitize_eid(event: gp.widgets.GooeyPieEvent) -> None:
         event.widget.text = event.widget.text[:5]
 
 
-def write_response_for_debug(response: dict) -> None:
-    with open('temp.json', 'w') as f:
-        f.write(json.dumps(response, indent=4))
+def write_response_for_debug(content: dict, filename: str) -> None:
+    with open(f'{filename}.json', 'w') as f:
+        f.write(json.dumps(content, indent=4))
 
 
 def validate_submit_values() -> None:
@@ -269,7 +269,8 @@ def validate_submit_values() -> None:
         try:
             res = requests.post(url, json=request, auth=('unittest', 'test01'))
             res = res.json()
-            write_response_for_debug(res)
+            write_response_for_debug(request, 'request')
+            write_response_for_debug(res, 'response')
             offers = res['productOfferings']['productOfferingResults']
         except requests.exceptions.ConnectionError:
             handle_app_state_change_on_exceptions()
@@ -283,7 +284,8 @@ def validate_submit_values() -> None:
         try:
             res = requests.post(url, json=request, verify=False)
             res = res.json()
-            write_response_for_debug(res)
+            write_response_for_debug(request, 'request')
+            write_response_for_debug(res, 'response')
             offers = res['searchProductOfferingReturn']['productOfferingResults']
         except requests.exceptions.ConnectionError:
             handle_app_state_change_on_exceptions()
@@ -307,15 +309,24 @@ def validate_submit_values() -> None:
         description = 'description'
         price = 'defaultPrice'
     
-    for offer in offers:
-        if (id_ := str(offer['matchingProductOffering']['ID'])) in final_dict.keys():
-            final_dict[id_].update({
-                "EPC Name": offer['matchingProductOffering'][title],
-                "EPC Description": offer['matchingProductOffering'][description],
-                "EPC Price": f"{float(offer['matchingProductOffering'][price].split(':')[1]):.2f}" if str(offer['matchingProductOffering'][price]) else ''
-            })
-    
-    
+    # Check if the offers variable is a list or just 1 offer
+    if isinstance(offers, list):
+        for offer in offers:
+            if (id_ := str(offer['matchingProductOffering']['ID'])) in final_dict.keys():
+                final_dict[id_].update({
+                    "EPC Name": offer['matchingProductOffering'][title],
+                    "EPC Description": offer['matchingProductOffering'][description],
+                    "EPC Price": f"{float(offer['matchingProductOffering'][price].split(':')[1]):.2f}" if str(offer['matchingProductOffering'][price]) else ''
+                })
+    else:
+        if (id_ := str(offers['matchingProductOffering']['ID'])) in final_dict.keys():
+                final_dict[id_].update({
+                    "EPC Name": offers['matchingProductOffering'][title],
+                    "EPC Description": offers['matchingProductOffering'][description],
+                    "EPC Price": f"{float(offers['matchingProductOffering'][price].split(':')[1]):.2f}" if str(offers['matchingProductOffering'][price]) else ''
+                })
+                
+        
     pass_list: list = []
     fail_list: list = []
     na_list: list = []
