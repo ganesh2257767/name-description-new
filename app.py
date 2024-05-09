@@ -1,4 +1,4 @@
-version = 1.8
+version = 1.9
 
 import gooeypie as gp
 import pandas as pd
@@ -351,10 +351,15 @@ def validate_submit_values() -> None:
     
     if proposal == 'sdl':
         name_str += f'[Ftax - {ftax}][EID - {eid}]'
-        
-    save_excel(f'Pass {name_str}.xlsx', pass_list)
-    save_excel(f'Fail {name_str}.xlsx', fail_list)
-    save_excel(f'NA {name_str}.xlsx', na_list)
+    
+    if mobile_offers_cb.checked:
+        save_excel(f'Pass {name_str} - Mobile.xlsx', pass_list)
+        save_excel(f'Fail {name_str} - Mobile.xlsx', fail_list)
+        save_excel(f'NA {name_str} - Mobile.xlsx', na_list)
+    else:
+        save_excel(f'Pass {name_str}.xlsx', pass_list)
+        save_excel(f'Fail {name_str}.xlsx', fail_list)
+        save_excel(f'NA {name_str}.xlsx', na_list)
     
     handle_app_state_change_on_exceptions()
     result_tbl.clear()

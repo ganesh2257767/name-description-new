@@ -13,3 +13,5 @@ logs.txt
 *.docx
 test.*
 Test/
+*.exe
+*.zip
