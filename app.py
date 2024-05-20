@@ -41,6 +41,11 @@ urls: dict = {
         'uat': 'https://ws-uat.suddenlink.cequel3.com/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering',
         'uat1': 'https://ws-uat.suddenlink.cequel3.com/uat1/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering',
         'uat2': 'https://ws-uat.suddenlink.cequel3.com/uat2/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering'
+    },
+    'isa only': {
+        'uat': 'https://ws-uat.suddenlink.cequel3.com/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering',
+        'uat1': 'https://ws-uat.suddenlink.cequel3.com/uat1/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering',
+        'uat2': 'https://ws-uat.suddenlink.cequel3.com/uat2/optimum-ecomm-abstraction-ws/rest/uow/searchProductOffering'
     }
 }
 
@@ -52,7 +57,11 @@ payloads: dict = {
     'dsa': {
         'opt': '''{{"salesContext":{{"localeString":"en_US","salesChannel":"DSL"}},"searchProductOfferingFilterInfo":{{"oolAvailable":true,"ovAvailable":true,"ioAvailable":true,"includeExpiredOfferings":false,"salesRuleContext":{{"customerProfile":{{"anonymous":true}},"customerInfo":{{"customerType":"R","newCustomer":true,"orderType":"Install","isPromotion":{},"eligibilityID":"test"}}}},"eligibilityStatus":[{{"code":"EA"}}]}},"offeringReadMask":{{"value":"SUMMARY"}},"checkCustomerProductOffering":false,"locale":"en_US","cartId":"FTJXQYDN","serviceAddress":{{"apt":"test","fta":"40","street":"test","city":"test","state":"test","zipcode":"test","type":"","clusterCode":"{}","mkt":"{}","corp":"{}","house":"test","cust":"1"}},"generics":false}}''',
         'sdl': '''{{"salesContext":{{"localeString":"en_US","salesChannel":"DSL"}},"searchProductOfferingFilterInfo":{{"oolAvailable":true,"ovAvailable":true,"ioAvailable":true,"includeExpiredOfferings":false,"salesRuleContext":{{"customerProfile":{{"anonymous":true}},"customerInfo":{{"customerType":"R","newCustomer":true,"orderType":"Install","isPromotion":{},"eligibilityID":"{}"}}}},"eligibilityStatus":[{{"code":"EA"}}]}},"offeringReadMask":{{"value":"SUMMARY"}},"checkCustomerProductOffering":false,"locale":"en_US","cartId":"FTJXQYDN","serviceAddress":{{"apt":"test","fta":"{}","street":"test","city":"test","state":"test","zipcode":"test","type":"","clusterCode":"{}","mkt":"{}","corp":"{}","house":"test","cust":"1"}},"generics":false}}'''
-    }
+    },
+    'isa only': {
+        'opt': '''{{"salesContext":{{"localeString":"en_US","salesChannel":"ISA"}},"searchProductOfferingFilterInfo":{{"oolAvailable":true,"ovAvailable":true,"ioAvailable":true,"includeExpiredOfferings":false,"salesRuleContext":{{"customerProfile":{{"anonymous":true}},"customerInfo":{{"customerType":"R","newCustomer":true,"orderType":"Install","isPromotion":{},"eligibilityID":"test"}}}},"eligibilityStatus":[{{"code":"EA"}}]}},"offeringReadMask":{{"value":"SUMMARY"}},"checkCustomerProductOffering":false,"locale":"en_US","cartId":"FTJXQYDN","serviceAddress":{{"apt":"test","fta":"40","street":"test","city":"test","state":"test","zipcode":"test","type":"","clusterCode":"{}","mkt":"{}","corp":"{}","house":"test","cust":"1"}},"generics":false}}''',
+        'sdl': '''{{"salesContext":{{"localeString":"en_US","salesChannel":"ISA"}},"searchProductOfferingFilterInfo":{{"oolAvailable":true,"ovAvailable":true,"ioAvailable":true,"includeExpiredOfferings":false,"salesRuleContext":{{"customerProfile":{{"anonymous":true}},"customerInfo":{{"customerType":"R","newCustomer":true,"orderType":"Install","isPromotion":{},"eligibilityID":"{}"}}}},"eligibilityStatus":[{{"code":"EA"}}]}},"offeringReadMask":{{"value":"SUMMARY"}},"checkCustomerProductOffering":false,"locale":"en_US","cartId":"FTJXQYDN","serviceAddress":{{"apt":"test","fta":"{}","street":"test","city":"test","state":"test","zipcode":"test","type":"","clusterCode":"{}","mkt":"{}","corp":"{}","house":"test","cust":"1"}},"generics":false}}'''
+    }   
 }
 
 corps: dict = {
@@ -293,7 +302,7 @@ def validate_submit_values() -> None:
     
     final_dict.clear()
     for _, row in data.iterrows():
-        if channel == 'dsa':
+        if channel in ('dsa', 'isa only'):
             name = row['Gathering Name'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}")
             try:
                 name_mobile = row['Gathering Name Mobile'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}")
@@ -306,8 +315,8 @@ def validate_submit_values() -> None:
                 'Gathering Name Mobile': name_mobile,
                 'Gathering Description': row['Gathering Description'],
                 'Gathering Description Mobile': row['Gathering Description Mobile'],
-                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else '',
-                'Gathering Price Mobile': f"{row['Gathering Price Mobile']:.2f}" if str(row['Gathering Price']) else ''
+                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else '0.00',
+                'Gathering Price Mobile': f"{row['Gathering Price Mobile']:.2f}" if str(row['Gathering Price Mobile']) else '0.00'
                 }
         else:
             final_dict[str(row['ID'])] = {
@@ -315,8 +324,8 @@ def validate_submit_values() -> None:
                 'Gathering Name Mobile': row['Gathering Name Mobile'],
                 'Gathering Description': row['Gathering Description'],
                 'Gathering Description Mobile': row['Gathering Description Mobile'],
-                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else '',
-                'Gathering Price Mobile': f"{row['Gathering Price Mobile']:.2f}" if str(row['Gathering Price']) else ''
+                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else '0.00',
+                'Gathering Price Mobile': f"{row['Gathering Price Mobile']:.2f}" if str(row['Gathering Price Mobile']) else '0.00'
                 }
     
     match (channel, proposal):
@@ -327,6 +336,10 @@ def validate_submit_values() -> None:
         case ('dsa', 'opt'):
             parameters = (promo, cluster, market, corp)
         case ('dsa', 'sdl'):
+            parameters = (promo, eid, ftax, cluster, market, corp)
+        case ('isa only', 'opt'):
+            parameters = (promo, cluster, market, corp)
+        case ('isa only', 'sdl'):
             parameters = (promo, eid, ftax, cluster, market, corp)
     
     payload = payloads[channel][proposal].format(*parameters)
@@ -505,7 +518,7 @@ if __name__ == '__main__':
     proposal_rg = gp.LabelRadiogroup(app, 'Proposal', ['Optimum', 'Suddenlink'], 'horizontal')
     proposal_rg.add_event_listener('change', set_market_cluster)
 
-    channel_rg = gp.LabelRadiogroup(app, 'Channel', ['ISA/DSA', 'UOW'], 'horizontal')
+    channel_rg = gp.LabelRadiogroup(app, 'Channel', ['ISA/DSA', 'UOW', 'ISA Only'], 'horizontal')
     channel_rg.add_event_listener('change', toggle_promo)
 
     env_rg = gp.LabelRadiogroup(app, 'Environment', ['UAT', 'UAT1', 'UAT2'], 'horizontal')
