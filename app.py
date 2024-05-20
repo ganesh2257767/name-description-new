@@ -12,6 +12,10 @@ import traceback
 import os
 import tkinter as tk
 
+output_dir = './Output'
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
 logger = logging.getLogger(__name__)
 handler = logging.FileHandler('logs.txt')
 handler.setLevel(logging.DEBUG)
@@ -418,9 +422,9 @@ def validate_submit_values() -> None:
         name_str += ' [Full Rate]'
     
 
-    save_excel(f'Pass {name_str}.xlsx', pass_list)
-    save_excel(f'Fail {name_str}.xlsx', fail_list)
-    save_excel(f'NA {name_str}.xlsx', na_list)
+    save_excel(f'{output_dir}/Pass {name_str}.xlsx', pass_list)
+    save_excel(f'{output_dir}/Fail {name_str}.xlsx', fail_list)
+    save_excel(f'{output_dir}/NA {name_str}.xlsx', na_list)
     
     handle_app_state_change_on_exceptions()
     result_tbl.clear()
