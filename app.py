@@ -543,8 +543,8 @@ if __name__ == '__main__':
     description_cb = gp.Checkbox(checkbox_container, 'Description')
     price_cb = gp.Checkbox(checkbox_container, 'Price')
 
-    mobile_offers_container = gp.Container(checkbox_container)
-    mobile_offers_cb = gp.Checkbox(mobile_offers_container, 'Checking Mobile Offers?')
+    # mobile_offers_container = gp.Container(checkbox_container)
+    # mobile_offers_cb = gp.Checkbox(mobile_offers_container, 'Checking Mobile Offers?')
 
     submit_btn = gp.Button(checkbox_container, 'Submit', lambda x: threading.Thread(target=validate_submit_values).start())
     output_folder_btn = gp.Button(checkbox_container, 'Output Folder', lambda x: os.startfile(os.getcwd()))
@@ -621,11 +621,11 @@ if __name__ == '__main__':
     checkbox_container.add(name_cb, 1, 2, fill=True)
     checkbox_container.add(description_cb, 1, 3, fill=True)
     checkbox_container.add(price_cb, 1, 4, fill=True)
-    checkbox_container.add(mobile_offers_container, 2, 1, fill=True, column_span=4)
+    # checkbox_container.add(mobile_offers_container, 2, 1, fill=True, column_span=4)
     checkbox_container.add(submit_btn, 3, 2, align='center')
     checkbox_container.add(output_folder_btn, 3, 3, align='center')
 
-    mobile_offers_container.set_grid(1, 1)
-    mobile_offers_container.add(mobile_offers_cb, 1, 1, align='center')
+    # mobile_offers_container.set_grid(1, 1)
+    # mobile_offers_container.add(mobile_offers_cb, 1, 1, align='center')
 
     app.run()
