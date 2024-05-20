@@ -1,4 +1,4 @@
-version = 2.0
+version = 2.1
 
 import gooeypie as gp
 import pandas as pd
@@ -19,7 +19,7 @@ format = logging.Formatter('[%(asctime)s] - [%(name)s] - [%(funcName)s:%(lineno)
 handler.setFormatter(format)
 logger.addHandler(handler)
 
-headers = ['Offer ID', "Gathering Name", "Gathering Description", "Gathering Price", "EPC Name", "EPC Description", "EPC Price", "Result"]
+headers = ['Offer ID', "Gathering Name", "Gathering Name Mobile", "Gathering Description", "Gathering Description Mobile", "Gathering Price", "Gathering Price Mobile", "EPC Name", "EPC Name Mobile", "EPC Description", "EPC Description Mobile", "EPC Price", "EPC Price Mobile", "Result"]
 
 file_path: str = None
 offers: dict = None
@@ -81,9 +81,9 @@ cluster_names = {
         '46': 'Advantage+ Internet',
         '52': 'Winback A',
         '53': 'Winback B',
-        '55': 'Winover A',
-        '57': 'Winover A',
-        '82': 'Winover B',
+        '55': 'WinOver A',
+        '57': 'WinOver A',
+        '82': 'WinOver B',
     },
     'sdl': {
         '14': 'Battle A',
@@ -104,10 +104,10 @@ cluster_names = {
         '61': 'Winback A',
         '62': 'Winback B',
         '63': 'Winback B',
-        '58': 'Winover A',
-        '59': 'Winover A',
-        '91': 'Winover B',
-        '92': 'Winover B',
+        '58': 'WinOver A',
+        '59': 'WinOver A',
+        '91': 'WinOver B',
+        '92': 'WinOver B',
     }
 }
 
@@ -171,7 +171,8 @@ def get_input_excel(event: gp.widgets.GooeyPieEvent) -> None:
         print("No file was selected, ignoring error")
     else:
         input_file_lbl.color = 'green'
-        data = pd.read_excel(file_path, skiprows=1, header=None, index_col=None, usecols='A:D', names=['ID', 'Gathering Name', 'Gathering Description', 'Gathering Price'])
+        data = pd.read_excel(file_path, skiprows=1, header=None, index_col=None, usecols='A:G', names=['ID', 'Gathering Name', 'Gathering Name Mobile', 'Gathering Description', 'Gathering Description Mobile', 'Gathering Price', 'Gathering Price Mobile'])
+        data.fillna('', inplace=True)
 
 
 def set_market_cluster(event: gp.widgets.GooeyPieEvent) -> None:
@@ -290,16 +291,28 @@ def validate_submit_values() -> None:
     for _, row in data.iterrows():
         if channel == 'dsa':
             name = row['Gathering Name'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}")
+            try:
+                name_mobile = row['Gathering Name Mobile'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}")
+            except Exception as e:
+                print(type(e), str(e))
+                name_mobile = ''
+
             final_dict[str(row['ID'])] = {
                 'Gathering Name': name,
+                'Gathering Name Mobile': name_mobile,
                 'Gathering Description': row['Gathering Description'],
-                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else ''
+                'Gathering Description Mobile': row['Gathering Description Mobile'],
+                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else '',
+                'Gathering Price Mobile': f"{row['Gathering Price Mobile']:.2f}" if str(row['Gathering Price']) else ''
                 }
         else:
             final_dict[str(row['ID'])] = {
                 'Gathering Name': row['Gathering Name'],
+                'Gathering Name Mobile': row['Gathering Name Mobile'],
                 'Gathering Description': row['Gathering Description'],
-                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else ''
+                'Gathering Description Mobile': row['Gathering Description Mobile'],
+                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else '',
+                'Gathering Price Mobile': f"{row['Gathering Price Mobile']:.2f}" if str(row['Gathering Price']) else ''
                 }
     
     match (channel, proposal):
@@ -350,33 +363,29 @@ def validate_submit_values() -> None:
         app.alert('Error', 'No offers returned, please use a different combination and try again', 'error')
         return
 
-    if mobile_offers_cb.checked:
-        title = 'mobileTitle'
-        description = 'mobileDescription'
-        price = 'mobileDefaultPrice'
-    else:
-        title = 'title'
-        description = 'description'
-        price = 'defaultPrice'
-    
     # Check if the offers variable is a list or just 1 offer
     if isinstance(offers, list):
         for offer in offers:
             if (id_ := str(offer['matchingProductOffering']['ID'])) in final_dict.keys():
                 final_dict[id_].update({
-                    "EPC Name": offer['matchingProductOffering'][title],
-                    "EPC Description": offer['matchingProductOffering'][description],
-                    "EPC Price": f"{float(offer['matchingProductOffering'][price].split(':')[1]):.2f}" if str(offer['matchingProductOffering'][price]) else ''
+                    "EPC Name": offer['matchingProductOffering']['title'],
+                    "EPC Name Mobile": offer['matchingProductOffering']['mobileTitle'],
+                    "EPC Description": offer['matchingProductOffering']['description'],
+                    "EPC Description Mobile": offer['matchingProductOffering']['mobileDescription'],
+                    "EPC Price": f"{float(offer['matchingProductOffering']['defaultPrice'].split(':')[1]):.2f}" if str(offer['matchingProductOffering']['defaultPrice']) else "0.00",
+                    "EPC Price Mobile": f"{float(offer['matchingProductOffering']['mobileDefaultPrice'].split(':')[1]):.2f}" if str(offer['matchingProductOffering']['mobileDefaultPrice']) else "0.00"
                 })
     else:
         if (id_ := str(offers['matchingProductOffering']['ID'])) in final_dict.keys():
                 final_dict[id_].update({
-                    "EPC Name": offers['matchingProductOffering'][title],
-                    "EPC Description": offers['matchingProductOffering'][description],
-                    "EPC Price": f"{float(offers['matchingProductOffering'][price].split(':')[1]):.2f}" if str(offers['matchingProductOffering'][price]) else ''
+                    "EPC Name": offers['matchingProductOffering']['title'],
+                    "EPC Name Mobile": offers['matchingProductOffering']['mobileTitle'],
+                    "EPC Description": offers['matchingProductOffering']['description'],
+                    "EPC Description Mobile": offers['matchingProductOffering']['mobileDescription'],
+                    "EPC Price": f"{float(offers['matchingProductOffering']['defaultPrice'].split(':')[1]):.2f}" if str(offers['matchingProductOffering']['defaultPrice']) else "0.00",
+                    "EPC Price Mobile": f"{float(offers['matchingProductOffering']['mobileDefaultPrice'].split(':')[1]):.2f}" if str(offers['matchingProductOffering']['mobileDefaultPrice']) else "0.00"
                 })
                 
-        
     pass_list: list = []
     fail_list: list = []
     na_list: list = []
@@ -384,32 +393,34 @@ def validate_submit_values() -> None:
     for offer, attributes in final_dict.items():
         try:
             name_check = attributes['Gathering Name'] == attributes['EPC Name']
+            mobile_name_check = attributes['Gathering Name Mobile'] == attributes['EPC Name Mobile']
             description_check = (attributes['Gathering Description'] == attributes['EPC Description']) or not description_cb.checked
+            mobile_description_check = (attributes['Gathering Description Mobile'] == attributes['EPC Description Mobile']) or not description_cb.checked
             price_check = (attributes['Gathering Price'] == attributes['EPC Price']) or not price_cb.checked
+            mobile_price_check = (attributes['Gathering Price Mobile'] == attributes['EPC Price Mobile']) or not price_cb.checked
         except KeyError:
-            temp = [offer, *attributes.values(), 'Not found', 'Not found', 'Not found', 'NA']
+            temp = [offer, *attributes.values(), 'Not found', 'Not found', 'Not found', 'Not found', 'Not found', 'Not found', 'NA']
             na_list.append(temp)
         else:
-            if all((name_check, description_check, price_check)):
+            if all((name_check, mobile_name_check, description_check, mobile_description_check, price_check, mobile_price_check)):
                 temp = [offer, *attributes.values(), 'Pass']
                 pass_list.append(temp)
             else:
                 temp = [offer, *attributes.values(), 'Fail']
                 fail_list.append(temp)
     
-    name_str = f'[{channel_rg.selected.replace("/", "-")}][Corp - {corp}][Market - {market}][Cluster - {cluster}]'
+    name_str = f'[{channel_rg.selected.replace("/", "-")}] [Corp - {corp}] [Market - {market}] [Cluster - {cluster}]'
     
     if proposal == 'sdl':
-        name_str += f'[Ftax - {ftax}][EID - {eid}]'
+        name_str += f' [Ftax - {ftax}] [EID - {eid}]'
     
-    if mobile_offers_cb.checked:
-        save_excel(f'Pass {name_str} - Mobile.xlsx', pass_list)
-        save_excel(f'Fail {name_str} - Mobile.xlsx', fail_list)
-        save_excel(f'NA {name_str} - Mobile.xlsx', na_list)
-    else:
-        save_excel(f'Pass {name_str}.xlsx', pass_list)
-        save_excel(f'Fail {name_str}.xlsx', fail_list)
-        save_excel(f'NA {name_str}.xlsx', na_list)
+    if promo == 'false':
+        name_str += ' [Full Rate]'
+    
+
+    save_excel(f'Pass {name_str}.xlsx', pass_list)
+    save_excel(f'Fail {name_str}.xlsx', fail_list)
+    save_excel(f'NA {name_str}.xlsx', na_list)
     
     handle_app_state_change_on_exceptions()
     result_tbl.clear()
