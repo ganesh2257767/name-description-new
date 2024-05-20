@@ -289,13 +289,9 @@ def validate_submit_values() -> None:
     final_dict.clear()
     for _, row in data.iterrows():
         if channel == 'dsa':
-            print("In channel DSA for replace")
-            print(row['Gathering Name'])
-            a = row['Gathering Name'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}")
-            print(a)
+            name = row['Gathering Name'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}")
             final_dict[str(row['ID'])] = {
-                # 'Gathering Name': row['Gathering Name'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}"),
-                'Gathering Name': a,
+                'Gathering Name': name,
                 'Gathering Description': row['Gathering Description'],
                 'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else ''
                 }
