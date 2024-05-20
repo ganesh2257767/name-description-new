@@ -1,4 +1,4 @@
-version = 1.9
+version = 2.0
 
 import gooeypie as gp
 import pandas as pd
@@ -66,6 +66,48 @@ markets_clusters: dict = {
     'suddenlink': {
         'markets': ['A', 'B', 'C', 'E', 'F', 'G', 'I', 'J', 'K', 'M', 'N', 'O', 'P', 'Q', 'V'],
         'clusters': [10, 21, 38, 39, 40, 41, 58, 59, 66, 67, 90, 91, 92, 93, 95]
+    }
+}
+
+cluster_names = {
+    'opt': {
+        '1': 'Battle A',
+        '2': 'Battle B',
+        '4': 'Defend A',
+        '5': 'Defend B',
+        '8': 'Maintain B',
+        '32': 'Conquer A',
+        '45': 'Advantage+ Internet',
+        '46': 'Advantage+ Internet',
+        '52': 'Winback A',
+        '53': 'Winback B',
+        '55': 'Winover A',
+        '57': 'Winover A',
+        '82': 'Winover B',
+    },
+    'sdl': {
+        '14': 'Battle A',
+        '15': 'Battle A',
+        '16': 'Battle B',
+        '17': 'Battle B',
+        '20': 'Defend A',
+        '21': 'Defend A',
+        '22': 'Defend B',
+        '23': 'Defend B',
+        '40': 'Maintain B',
+        '41': 'Maintain B',
+        '26': 'Conquer A',
+        '27': 'Conquer A',
+        '47': 'Advantage+ Internet',
+        '48': 'Advantage+ Internet',
+        '60': 'Winback A',
+        '61': 'Winback A',
+        '62': 'Winback B',
+        '63': 'Winback B',
+        '58': 'Winover A',
+        '59': 'Winover A',
+        '91': 'Winover B',
+        '92': 'Winover B',
     }
 }
 
@@ -230,14 +272,6 @@ def validate_submit_values() -> None:
     submit_btn.disabled = True
     app.update()
     
-    final_dict.clear()
-    for _, row in data.iterrows():
-        final_dict[str(row['ID'])] = {
-            'Gathering Name':row['Gathering Name'],
-            'Gathering Description': row['Gathering Description'],
-            'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else ''
-            }
-    
     proposal = 'opt' if proposal_rg.selected == 'Optimum' else 'sdl'
     channel = channel_rg.selected.split('/')[-1].lower()
     env = env_rg.selected.lower()
@@ -251,6 +285,26 @@ def validate_submit_values() -> None:
     addr_loc, addr_street, addr_city, addr_state, addr_zip = get_address(corp)
     
     url = urls[channel][env]
+    
+    final_dict.clear()
+    for _, row in data.iterrows():
+        if channel == 'dsa':
+            print("In channel DSA for replace")
+            print(row['Gathering Name'])
+            a = row['Gathering Name'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}")
+            print(a)
+            final_dict[str(row['ID'])] = {
+                # 'Gathering Name': row['Gathering Name'].replace('Segment Name', f"{cluster_names[proposal].get(cluster, 'Maintain A')}"),
+                'Gathering Name': a,
+                'Gathering Description': row['Gathering Description'],
+                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else ''
+                }
+        else:
+            final_dict[str(row['ID'])] = {
+                'Gathering Name': row['Gathering Name'],
+                'Gathering Description': row['Gathering Description'],
+                'Gathering Price': f"{row['Gathering Price']:.2f}" if str(row['Gathering Price']) else ''
+                }
     
     match (channel, proposal):
         case ('uow', 'opt'):
