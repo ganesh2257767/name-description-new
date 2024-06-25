@@ -1,4 +1,4 @@
-version = 2.1
+version = 2.2
 
 import gooeypie as gp
 import pandas as pd
@@ -345,6 +345,10 @@ def validate_submit_values() -> None:
     payload = payloads[channel][proposal].format(*parameters)
     request = json.loads(payload)
     
+    pass_list: list = []
+    fail_list: list = []
+    na_list: list = []
+    
     if channel == 'uow':
         try:
             res = requests.post(url, json=request, auth=('unittest', 'test01'))
@@ -358,7 +362,11 @@ def validate_submit_values() -> None:
             return
         except KeyError:
             handle_app_state_change_on_exceptions()
-            app.alert("Response Error", 'Looks like no offers were returned, please check the corp/ftax/cluster/eid combinations and try again!', 'error')
+            for offer, attributes in final_dict.items():
+                temp = [offer, *attributes.values(), 'Not found', 'Not found', 'Not found', 'Not found', 'Not found', 'Not found', 'NA']
+                na_list.append(temp)
+                save_excel(f'{output_dir}/NA - All.xlsx', na_list)
+            app.alert("Response Error", 'Looks like no offers were returned, please check the corp/ftax/cluster/eid combinations and try again!\n\nNA file has been created.', 'error')
             return
     else:
         try:
@@ -373,7 +381,11 @@ def validate_submit_values() -> None:
             return
         except KeyError:
             handle_app_state_change_on_exceptions()
-            app.alert("Response Error", 'Looks like no offers were returned, please check the corp/ftax/cluster/eid combinations and try again!', 'error')
+            for offer, attributes in final_dict.items():
+                temp = [offer, *attributes.values(), 'Not found', 'Not found', 'Not found', 'Not found', 'Not found', 'Not found', 'NA']
+                na_list.append(temp)
+                save_excel(f'{output_dir}/NA - All.xlsx', na_list)
+            app.alert("Response Error", 'Looks like no offers were returned, please check the corp/ftax/cluster/eid combinations and try again!\n\nNA file has been created.', 'error')
             return
     if not offers:
         handle_app_state_change_on_exceptions()
@@ -403,9 +415,9 @@ def validate_submit_values() -> None:
                     "EPC Price Mobile": f"{float(offers['matchingProductOffering']['mobileDefaultPrice'].split(':')[1]):.2f}" if str(offers['matchingProductOffering']['mobileDefaultPrice']) else "0.00"
                 })
                 
-    pass_list: list = []
-    fail_list: list = []
-    na_list: list = []
+    # pass_list: list = []
+    # fail_list: list = []
+    # na_list: list = []
     
     for offer, attributes in final_dict.items():
         try:
