@@ -1,4 +1,4 @@
-version = 2.2
+version = 2.3
 
 import gooeypie as gp
 import pandas as pd
